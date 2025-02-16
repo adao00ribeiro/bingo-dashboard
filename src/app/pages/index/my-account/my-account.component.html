@@ -1,0 +1,49 @@
+<div class="account-dashboard">
+  <div class="dashboard-header">
+    <h1>Minha Conta</h1>
+  </div>
+  @if(seller){
+  <ng-container>
+    <div class="account-details">
+      <div class="profile-section">
+        <div class="profile-photo-container">
+          <img
+            [src]=" '/assets/default-profile.png'"
+            alt="Profile"
+            class="profile-photo"
+          >
+          <input
+            type="file"
+            accept="image/*"
+            class="file-input"
+          >
+          <div class="upload-overlay">
+            <span>Alterar Foto</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-card">
+        <h2>Informações Pessoais</h2>
+        <div class="detail-item">
+          <span class="label">Email:</span>
+          <span class="value">{{ seller?.email }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">CPF:</span>
+          <span class="value">{{ seller?.cpf }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Data de Nascimento:</span>
+          <span class="value">{{ seller?.dateBirth  }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+    }
+    @else {
+      <ng-container >
+        <div class="loading">Carregando...</div>
+      </ng-container>
+    }
+
+</div>
