@@ -9,4 +9,15 @@
     justify-content: center;
 
   }
+  .footer{
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    gap: 10px; /* Espaçamento entre os botões */
+
+
+    button{
+      padding: 1rem;
+    }
+  }
 }

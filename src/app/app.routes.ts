@@ -11,6 +11,7 @@ import { ListRoomComponent } from './pages/index/list-room/list-room.component';
 import { AddRoomComponent } from './pages/index/add-room/add-room.component';
 import { ListRoundComponent } from './pages/index/list-round/list-round.component';
 import { AddRoundComponent } from './pages/index/add-round/add-round.component';
+import { RoundTabsComponent } from './pages/index/round-tabs/round-tabs.component';
 
 export const routes: Routes = [
   {
@@ -45,7 +46,7 @@ export const routes: Routes = [
       },
       {
         path: 'addrounds',
-        component: AddRoundComponent,
+        component: RoundTabsComponent,
       },
       {
         path: 'wallet',
