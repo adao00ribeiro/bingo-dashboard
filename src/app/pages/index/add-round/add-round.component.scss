@@ -1,23 +1,73 @@
-.form{
-  display: flex;
-  flex-direction: column;
-
-  .group{
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    justify-content: center;
-
+:host {
+  h2 {
+    color: white;
   }
-  .footer{
+
+  button {
+    padding: 1rem;
+  }
+
+  .form {
     display: flex;
-    gap: 1rem;
-    justify-content: flex-end;
-    gap: 10px; /* Espaçamento entre os botões */
+    flex-direction: column;
+    gap: 0.3rem;
 
+    .group {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: space-between;
+      flex: 1;
 
-    button{
-      padding: 1rem;
+      .example-full-width {
+        width: 100%;
+      }
+    }
+
+    .prizes {
+      padding: 0.3rem;
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      h2 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+      }
+
+      ::ng-deep .prize-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+        padding: 0.75rem;
+        background: white;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        mat-form-field {
+          flex: 1;
+        }
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: #d32f2f;
+
+          &:hover {
+            color: #b71c1c;
+          }
+        }
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px; /* Espaçamento entre os botões */
     }
   }
 }

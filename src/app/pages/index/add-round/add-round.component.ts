@@ -1,5 +1,5 @@
-import { Component, effect, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, effect, inject, ViewEncapsulation } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -9,6 +9,10 @@ import { RoundService } from '../../../services/round/round.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
+import { MatIcon } from '@angular/material/icon';
+import { EPrizeType } from '../../../enums/EPrizeType';
+import { EnumToArrayPipe } from '../../../pipes/enum-to-array.pipe';
+import { ChangeDetectorRef } from '@angular/core';
 interface maxBalls {
   value: number,
   view: string
@@ -16,17 +20,33 @@ interface maxBalls {
 @Component({
   selector: 'app-add-round',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [EnumToArrayPipe,MatIcon,ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './add-round.component.html',
-  styleUrl: './add-round.component.scss'
+  styleUrl: './add-round.component.scss',
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class AddRoundComponent {
   roundForm: FormGroup;
-
+    prizeTypes = Object.keys(EPrizeType) as EPrizeType[]; // Converte Enum em Array
   private readonly roundService = inject(RoundService);
   protected readonly roomService = inject(RoomService);
    private router: Router = inject(Router);
   readonly snackBar = inject(MatSnackBar);
+  prizeTypeTranslations = {
+    [EPrizeType.FourInLine]: "Quatro em Linha",
+    [EPrizeType.FourCorners]: "Quatro Cantos",
+    [EPrizeType.SingleLine]: "Uma Linha",
+    [EPrizeType.SingleColumn]: "Uma Coluna",
+    [EPrizeType.Diagonal]: "Diagonal",
+    [EPrizeType.InvertedDiagonal]: "Diagonal Invertida",
+    [EPrizeType.DoubleLine]: "Duas Linhas",
+    [EPrizeType.DoubleColumn]: "Duas Colunas",
+    [EPrizeType.FullCard]: "Cartela Cheia",
+    [EPrizeType.TShape]: "Formato de T",
+    [EPrizeType.XShape]: "Formato de X",
+    [EPrizeType.PlusShape]: "Formato de +",
+    [EPrizeType.OuterEdge]: "Borda Externa"
+  };
   constructor(private fb: FormBuilder) {
     this.roundForm = this.fb.group({
       roomId: ['', [Validators.required]],
@@ -34,6 +54,7 @@ export class AddRoundComponent {
       cardValue: [0.20, [Validators.required]],
       timeBetweenBalls: [4, [Validators.required]],
       maxBalls: [this.maxBalls[0].value, [Validators.required]],
+      prizes: this.fb.array([]) // Array para prêmios
     });
   }
   ngOnInit(): void {
@@ -59,7 +80,8 @@ export class AddRoundComponent {
       return;
     }
     const rowCol = this.getRowCol( this.roundForm.value.maxBalls);
-
+    console.log(this.roundForm)
+    return;
     const roundRequest: IRoundRequest = {
       roomId: this.roundForm.value.roomId,
       cardValue: parseFloat(this.roundForm.value.cardValue),
@@ -103,5 +125,20 @@ export class AddRoundComponent {
     };
 
     return config[maxBalls] ;
+  }
+  get prizes() {
+    return this.roundForm.get('prizes') as FormArray;
+  }
+
+  addPrize() {
+    const prizeForm = this.fb.group({
+      tipo: ['', Validators.required],
+      value: ['', [Validators.required, Validators.min(0)]]
+    });
+    this.prizes.push(prizeForm);
+  }
+
+  removePrize(index: number) {
+    this.prizes.removeAt(index);
   }
 }

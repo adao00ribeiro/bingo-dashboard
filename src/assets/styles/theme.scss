@@ -63,6 +63,7 @@
     color: black
   }
   .btn-primary {
+    padding:  0.5rem;
     background-color: map-get-value($map, button-color) !important;
     color: map-get-value($map, button-text-color);
 
@@ -85,9 +86,6 @@
   }
   .blue{
     background-color: rgb(20, 2, 179);
-  }
-  span{
-   color:  map-get-value($map, white-color);
   }
 
 }
