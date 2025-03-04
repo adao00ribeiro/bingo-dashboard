@@ -11,8 +11,7 @@ import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { EPrizeType } from '../../../enums/EPrizeType';
-import { EnumToArrayPipe } from '../../../pipes/enum-to-array.pipe';
-import { ChangeDetectorRef } from '@angular/core';
+
 interface maxBalls {
   value: number,
   view: string
@@ -20,7 +19,7 @@ interface maxBalls {
 @Component({
   selector: 'app-add-round',
   standalone: true,
-  imports: [EnumToArrayPipe,MatIcon,ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [MatIcon,ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
   templateUrl: './add-round.component.html',
   styleUrl: './add-round.component.scss',
   encapsulation: ViewEncapsulation.Emulated
