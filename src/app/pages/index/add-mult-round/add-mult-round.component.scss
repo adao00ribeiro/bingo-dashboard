@@ -1,0 +1,11 @@
+.group {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  justify-content: space-between;
+  flex: 1;
+
+  .example-full-width {
+    width: 100%;
+  }
+}

@@ -1,6 +1,5 @@
 <section>
   <form class="form" [formGroup]="roundForm" (ngSubmit)="handleAddRoundClick()">
-    <h2>Adicionar Rodada</h2>
     <mat-form-field>
       <mat-label>Sala</mat-label>
       <mat-select name="food" formControlName="roomId">
@@ -18,9 +17,7 @@
         <mat-label>Data Inicio</mat-label>
         <input type="datetime-local" matInput formControlName="startedDate">
       </mat-form-field>
-
     </div>
-
     <div class="group">
       <mat-form-field class="example-full-width">
         <mat-label>Quantidade de numeros</mat-label>
@@ -36,29 +33,7 @@
       </mat-form-field>
     </div>
     <h2>Prêmios</h2>
-    <div class="prizes" formArrayName="prizes">
-        @for (item of prizes.controls; track $index) {
-        <div class="prize-item" [formGroupName]="$index">
-          <mat-form-field>
-            <mat-label>Tipo</mat-label>
-            <mat-select formControlName="tipo">
-              @for (prize of  prizeTypes ; track $index) {
-                <mat-option [value]="prize"> {{ prizeTypeTranslations[prize] }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-label>Valor</mat-label>
-            <input type="number" matInput formControlName="value" placeholder="Ex: 100">
-          </mat-form-field>
-          <button type="button" mat-icon-button color="warn" (click)="removePrize($index)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      }
-        <button class="btn-primary" type="button" (click)="addPrize()">Adicionar Prêmio</button>
-
-    </div>
+      <app-add-prizes (prizesChange)="onPrizesChange($event)"></app-add-prizes>
       <footer class="footer">
         <button class="btn-second">CANCELAR</button>
         <button class="btn-primary" type="submit">Adicionar</button>
