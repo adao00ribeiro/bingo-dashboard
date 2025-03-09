@@ -14,12 +14,10 @@ import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/
 import { ISeller } from '../../interfaces/ISeller';
 import { SellerService } from '../../services/seller/seller.service';
 @Component({
-  selector: 'app-index',
-  standalone: true,
-  imports: [MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CurrencyPipe],
-  templateUrl: './index.component.html',
-  styleUrl: './index.component.scss',
-
+    selector: 'app-index',
+    imports: [MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CurrencyPipe],
+    templateUrl: './index.component.html',
+    styleUrl: './index.component.scss'
 })
 export class IndexComponent {
   @ViewChild('snav') sidenav!: MatSidenav; // Referência ao MatSidenav

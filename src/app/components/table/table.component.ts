@@ -6,11 +6,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-  selector: 'app-table',
-  standalone: true,
-  imports: [MatFormFieldModule,MatInputModule,DynamicPipe,MatTableModule, MatPaginatorModule],
-  templateUrl: './table.component.html',
-  styleUrl: './table.component.scss'
+    selector: 'app-table',
+    imports: [MatFormFieldModule, MatInputModule, DynamicPipe, MatTableModule, MatPaginatorModule],
+    templateUrl: './table.component.html',
+    styleUrl: './table.component.scss'
 })
 export class TableComponent<T extends object> implements OnInit, AfterViewInit{
   @Input() columnMappings: { key: string; displayName: string , pipe?: string }[] = [];

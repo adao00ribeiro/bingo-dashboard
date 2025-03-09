@@ -15,20 +15,20 @@ export interface DialogDeposit {
 
 }
 @Component({
-  selector: 'app-dialog-deposit',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDividerModule,
-    MatDialogContent,
-    MatCardModule,
-    MatButtonModule],
-  templateUrl: './dialog-deposit.component.html',
-  styleUrl: './dialog-deposit.component.scss'
+    selector: 'app-dialog-deposit',
+    imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatDividerModule,
+        MatDialogContent,
+        MatCardModule,
+        MatButtonModule
+    ],
+    templateUrl: './dialog-deposit.component.html',
+    styleUrl: './dialog-deposit.component.scss'
 })
 export class DialogDepositComponent {
   depositForm: FormGroup;

@@ -13,11 +13,10 @@ import { interval, Subscription } from 'rxjs';
 
 
 @Component({
-  selector: 'app-card-round',
-  standalone: true,
-  imports: [MatIcon, MatTooltipModule, CurrencyPipe, GuidPipe],
-  templateUrl: './card-round.component.html',
-  styleUrl: './card-round.component.scss'
+    selector: 'app-card-round',
+    imports: [MatIcon, MatTooltipModule, CurrencyPipe, GuidPipe],
+    templateUrl: './card-round.component.html',
+    styleUrl: './card-round.component.scss'
 })
 export class CardRoundComponent implements OnInit ,OnDestroy {
 

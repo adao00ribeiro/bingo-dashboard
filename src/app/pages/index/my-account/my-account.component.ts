@@ -4,11 +4,10 @@ import { SellerService } from '../../../services/seller/seller.service';
 import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
-  selector: 'app-my-account',
-  standalone: true,
-  imports: [],
-  templateUrl: './my-account.component.html',
-  styleUrl: './my-account.component.scss'
+    selector: 'app-my-account',
+    imports: [],
+    templateUrl: './my-account.component.html',
+    styleUrl: './my-account.component.scss'
 })
 export class MyAccountComponent {
   seller: ISeller | null = null;

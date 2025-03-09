@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-card-my-award',
-  standalone: true,
-  imports: [],
-  templateUrl: './card-my-award.component.html',
-  styleUrl: './card-my-award.component.scss'
+    selector: 'app-card-my-award',
+    imports: [],
+    templateUrl: './card-my-award.component.html',
+    styleUrl: './card-my-award.component.scss'
 })
 export class CardMyAwardComponent {
   @Input() award: any;

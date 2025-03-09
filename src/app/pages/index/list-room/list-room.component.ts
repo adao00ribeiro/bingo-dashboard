@@ -4,11 +4,10 @@ import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-list-room',
-  standalone: true,
-  imports: [TableComponent],
-  templateUrl: './list-room.component.html',
-  styleUrl: './list-room.component.scss'
+    selector: 'app-list-room',
+    imports: [TableComponent],
+    templateUrl: './list-room.component.html',
+    styleUrl: './list-room.component.scss'
 })
 export class ListRoomComponent implements OnInit {
 

@@ -10,12 +10,11 @@ import { UserService } from '../../services/auth/user.service';
 import { RoundService } from '../../services/round/round.service';
 import { GuidPipe } from '../../pipes/guid.pipe';
 @Component({
-  selector: 'app-card-buy',
-  standalone: true,
-  imports: [CommonModule,FormsModule,CurrencyPipe , GuidPipe],
-  templateUrl: './card-buy.component.html',
-  styleUrl: './card-buy.component.scss',
-  providers:[]
+    selector: 'app-card-buy',
+    imports: [CommonModule, FormsModule, CurrencyPipe, GuidPipe],
+    templateUrl: './card-buy.component.html',
+    styleUrl: './card-buy.component.scss',
+    providers: []
 })
 export class CardBuyComponent  {
   round = input.required<IRound>();

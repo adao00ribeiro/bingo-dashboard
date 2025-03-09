@@ -18,22 +18,20 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ILoginRequest } from '../../interfaces/ILoginRequest';
 import { timer } from 'rxjs';
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [
-    InputMaskComponent,
-    ReactiveFormsModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    MatDividerModule,
-    MatButtonModule,
-    RouterLink
-  ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
-
+    selector: 'app-login',
+    imports: [
+        InputMaskComponent,
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatDividerModule,
+        MatButtonModule,
+        RouterLink
+    ],
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;

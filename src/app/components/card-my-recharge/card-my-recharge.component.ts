@@ -3,11 +3,10 @@ import { IRecharge } from '../../interfaces/IRecharge';
 import { CommonModule } from '@angular/common';
 import { ERechargeStatus } from '../../enums/ERechargeStatus';
 @Component({
-  selector: 'app-card-my-recharge',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './card-my-recharge.component.html',
-  styleUrl: './card-my-recharge.component.scss'
+    selector: 'app-card-my-recharge',
+    imports: [CommonModule],
+    templateUrl: './card-my-recharge.component.html',
+    styleUrl: './card-my-recharge.component.scss'
 })
 export class CardMyRechargeComponent {
   @Input() recharge: IRecharge | undefined = undefined;

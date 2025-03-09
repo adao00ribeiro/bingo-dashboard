@@ -3,12 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-button-menu',
-  standalone: true,
-  imports: [MatButtonModule,MatIconModule],
-  templateUrl: './button-menu.component.html',
-  styleUrl: './button-menu.component.scss',
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-button-menu',
+    imports: [MatButtonModule, MatIconModule],
+    templateUrl: './button-menu.component.html',
+    styleUrl: './button-menu.component.scss',
+    encapsulation: ViewEncapsulation.None
 })
 export class ButtonMenuComponent {
   @Input() descricao!: string;

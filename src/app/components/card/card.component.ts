@@ -4,11 +4,10 @@ import { GuidPipe } from '../../pipes/guid.pipe';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-card',
-  standalone: true,
-  imports: [GuidPipe,CommonModule ],
-  templateUrl: './card.component.html',
-  styleUrl: './card.component.scss'
+    selector: 'app-card',
+    imports: [GuidPipe, CommonModule],
+    templateUrl: './card.component.html',
+    styleUrl: './card.component.scss'
 })
 export class CardComponent implements OnInit {
   ngOnInit(): void {

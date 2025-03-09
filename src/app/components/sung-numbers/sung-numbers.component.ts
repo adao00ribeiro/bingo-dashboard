@@ -2,11 +2,10 @@ import { Component, input } from '@angular/core';
 import { BallComponent } from "../ball/ball.component";
 
 @Component({
-  selector: 'app-sung-numbers',
-  standalone: true,
-  imports: [BallComponent],
-  templateUrl: './sung-numbers.component.html',
-  styleUrl: './sung-numbers.component.scss'
+    selector: 'app-sung-numbers',
+    imports: [BallComponent],
+    templateUrl: './sung-numbers.component.html',
+    styleUrl: './sung-numbers.component.scss'
 })
 export class SungNumbersComponent {
   mainBall =   input.required<number>();

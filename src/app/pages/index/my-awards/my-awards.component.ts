@@ -4,11 +4,10 @@ import { CardWinnersService } from '../../../services/card-winners.service';
 
 
 @Component({
-  selector: 'app-my-awards',
-  standalone: true,
-  imports: [TableComponent],
-  templateUrl: './my-awards.component.html',
-  styleUrl: './my-awards.component.scss'
+    selector: 'app-my-awards',
+    imports: [TableComponent],
+    templateUrl: './my-awards.component.html',
+    styleUrl: './my-awards.component.scss'
 })
 export class MyAwardsComponent {
  protected readonly cardwinnerService: CardWinnersService = inject(CardWinnersService);

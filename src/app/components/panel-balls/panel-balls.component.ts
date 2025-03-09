@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, computed, effect, input, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-panel-balls',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './panel-balls.component.html',
-  styleUrl: './panel-balls.component.scss'
+    selector: 'app-panel-balls',
+    imports: [CommonModule],
+    templateUrl: './panel-balls.component.html',
+    styleUrl: './panel-balls.component.scss'
 })
 export class PanelBallsComponent {
   balls = input<number[]>([]);

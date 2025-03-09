@@ -7,12 +7,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { EPrizeType } from '../../enums/EPrizeType';
 
 @Component({
-  selector: 'app-add-prizes',
-  standalone: true,
-  imports: [MatIcon, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
-  templateUrl: './add-prizes.component.html',
-  styleUrl: './add-prizes.component.scss',
-
+    selector: 'app-add-prizes',
+    imports: [MatIcon, ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+    templateUrl: './add-prizes.component.html',
+    styleUrl: './add-prizes.component.scss'
 })
 export class AddPrizesComponent {
 

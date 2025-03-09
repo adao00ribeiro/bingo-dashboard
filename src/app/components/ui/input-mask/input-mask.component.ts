@@ -6,11 +6,10 @@ import {FormControl, FormsModule} from '@angular/forms';
 
 
 @Component({
-  selector: 'app-input-mask',
-  standalone: true,
-  imports: [NgxMaskDirective, NgxMaskPipe,FormsModule, MatFormFieldModule, MatInputModule],
-  templateUrl: './input-mask.component.html',
-  styleUrl: './input-mask.component.scss'
+    selector: 'app-input-mask',
+    imports: [NgxMaskDirective, NgxMaskPipe, FormsModule, MatFormFieldModule, MatInputModule],
+    templateUrl: './input-mask.component.html',
+    styleUrl: './input-mask.component.scss'
 })
 export class InputMaskComponent {
   @Input() label!: string ;

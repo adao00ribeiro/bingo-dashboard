@@ -17,11 +17,10 @@ export interface DialogCardBuyProps {
   round: IRound;
 }
 @Component({
-  selector: 'app-dialog-card-buy',
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, CardBuyComponent],
-  templateUrl: './dialog-card-buy.component.html',
-  styleUrl: './dialog-card-buy.component.scss'
+    selector: 'app-dialog-card-buy',
+    imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogClose, MatButtonModule, CardBuyComponent],
+    templateUrl: './dialog-card-buy.component.html',
+    styleUrl: './dialog-card-buy.component.scss'
 })
 export class DialogCardBuyComponent {
 

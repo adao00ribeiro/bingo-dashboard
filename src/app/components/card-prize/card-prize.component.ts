@@ -2,11 +2,10 @@ import { Component, input, OnInit } from '@angular/core';
 import { EPrizeType } from '../../enums/EPrizeType';
 
 @Component({
-  selector: 'app-card-prize',
-  standalone: true,
-  imports: [],
-  templateUrl: './card-prize.component.html',
-  styleUrl: './card-prize.component.scss'
+    selector: 'app-card-prize',
+    imports: [],
+    templateUrl: './card-prize.component.html',
+    styleUrl: './card-prize.component.scss'
 })
 export class CardPrizeComponent {
   max:number = 15

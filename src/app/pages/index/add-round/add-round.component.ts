@@ -18,12 +18,10 @@ export interface maxBalls {
   view: string
 }
 @Component({
-  selector: 'app-add-round',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule,AddPrizesComponent],
-  templateUrl: './add-round.component.html',
-  styleUrl: './add-round.component.scss',
-
+    selector: 'app-add-round',
+    imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, AddPrizesComponent],
+    templateUrl: './add-round.component.html',
+    styleUrl: './add-round.component.scss'
 })
 export class AddRoundComponent {
   roundForm: FormGroup;

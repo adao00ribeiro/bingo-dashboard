@@ -10,11 +10,10 @@ import { AddPrizesComponent } from "../../../components/add-prizes/add-prizes.co
 import { maxBalls } from '../add-round/add-round.component';
 
 @Component({
-  selector: 'app-add-mult-round',
-  standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, AddPrizesComponent],
-  templateUrl: './add-mult-round.component.html',
-  styleUrl: './add-mult-round.component.scss'
+    selector: 'app-add-mult-round',
+    imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, AddPrizesComponent],
+    templateUrl: './add-mult-round.component.html',
+    styleUrl: './add-mult-round.component.scss'
 })
 export class AddMultRoundComponent {
   roundForm: FormGroup;
