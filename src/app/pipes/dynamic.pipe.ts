@@ -5,10 +5,12 @@ import { CurrencyPipe } from './currency.pipe';
 
 @Pipe({
   name: 'dynamic',
-  standalone: true
+
 })
 export class DynamicPipe implements PipeTransform {
-  constructor(private currencyPipe: CurrencyPipe, private guidpipe: GuidPipe) {}
+  private currencyPipe = new CurrencyPipe();
+  private guidpipe = new GuidPipe();
+
   transform(value: string | null | undefined, pipeName: string | null, ...args: any[]): any {
     console.log(pipeName)
     switch (pipeName) {

@@ -2,11 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RoundService } from '../../../services/round/round.service';
 import { Router } from '@angular/router';
 import { TableComponent } from '../../../components/table/table.component';
-import { CurrencyPipe } from '../../../pipes/currency.pipe';
 
 @Component({
     selector: 'app-list-round',
-    imports: [CurrencyPipe, TableComponent],
+    imports: [ TableComponent],
     templateUrl: './list-round.component.html',
     styleUrl: './list-round.component.scss'
 })

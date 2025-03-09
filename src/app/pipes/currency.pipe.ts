@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'currency',
-  standalone: true
 })
 export class CurrencyPipe implements PipeTransform {
 
@@ -21,7 +20,7 @@ export class CurrencyPipe implements PipeTransform {
       cleanValue = cleanValue.replace(',', '.');  // Converte a vírgula para ponto
       return parseFloat(cleanValue).toString();  // Retorna o valor como número
     }
-    console.log("aplicando")
+
     return value;
   }
 }

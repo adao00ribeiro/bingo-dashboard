@@ -1,5 +1,5 @@
 
-@import "natal/natal-dark.scss";
-@import "natal/natal-light.scss";
-@import "bingo/bingo-dark.scss";
-@import "bingo/bingo-light.scss";
+@forward "natal/natal-dark.scss";
+@forward "natal/natal-light.scss";
+@forward "bingo/bingo-dark.scss";
+@forward "bingo/bingo-light.scss";
