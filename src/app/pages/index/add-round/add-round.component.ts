@@ -11,8 +11,9 @@ import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
 
 import { AddPrizesComponent } from '../../../components/add-prizes/add-prizes.component';
+import { IPrize } from '../../../interfaces/IPrize';
 
-interface maxBalls {
+export interface maxBalls {
   value: number,
   view: string
 }
@@ -37,7 +38,7 @@ export class AddRoundComponent {
       roomId: ['', [Validators.required]],
       startedDate: [new Date().toISOString(), [Validators.required]],
       cardValue: [0.20, [Validators.required]],
-      timeBetweenBalls: [4, [Validators.required]],
+      timeBetweenBalls: [4, [Validators.required, Validators.min(4)]],
       maxBalls: [this.maxBalls[0].value, [Validators.required]],
       prizes: this.fb.array([]) // Array para prêmios
     });
@@ -45,6 +46,7 @@ export class AddRoundComponent {
   ngOnInit(): void {
     this.roomService.loadRooms();
   }
+
   rooms: IRoom[] = [
     { id: '123', name: 'Steak', ownerId: "" },
     { id: '456', name: 'Pizza', ownerId: "" },
@@ -65,8 +67,7 @@ export class AddRoundComponent {
       return;
     }
     const rowCol = this.getRowCol( this.roundForm.value.maxBalls);
-    console.log(this.roundForm)
-    return;
+    const prizes =   this.roundForm.get('prizes') as FormArray
     const roundRequest: IRoundRequest = {
       roomId: this.roundForm.value.roomId,
       cardValue: parseFloat(this.roundForm.value.cardValue),
@@ -75,6 +76,11 @@ export class AddRoundComponent {
       maxBalls: parseInt(this.roundForm.value.maxBalls),
       cardRows: rowCol.rows ,
       cardColumns: rowCol.cols,
+      prizes:  prizes.controls.map(x => ({
+        type: x.value.tipo,  // Certifique-se de que "tipo" é o nome correto do campo no FormGroup
+        value: x.value.value
+      }) as IPrize)
+
     };
 
     this.roundService.Create(roundRequest).subscribe({

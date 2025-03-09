@@ -15,8 +15,10 @@ import { EPrizeType } from '../../enums/EPrizeType';
 
 })
 export class AddPrizesComponent {
+
+
   prizeForm: FormGroup;
-  prizeTypes = Object.keys(EPrizeType) as EPrizeType[]; // Converte Enum em Array
+  prizeTypes = Object.keys(EPrizeType) as EPrizeType[];
   prizeTypeTranslations = {
      [EPrizeType.FourInLine]: "Quatro em Linha",
      [EPrizeType.FourCorners]: "Quatro Cantos",
@@ -32,7 +34,7 @@ export class AddPrizesComponent {
      [EPrizeType.PlusShape]: "Formato de +",
      [EPrizeType.OuterEdge]: "Borda Externa"
    };
-
+   maxBalls = input.required<number>()
    prizesChange = output<FormArray>();
    constructor(private fb: FormBuilder) {
     this.prizeForm = this.fb.group({
@@ -41,6 +43,17 @@ export class AddPrizesComponent {
   }
   get prizes(): FormArray {
     return this.prizeForm.get('prizes') as FormArray;
+  }
+  private excludedPrizesByMaxBalls: Record<number, EPrizeType[]> = {
+    90: [EPrizeType.Diagonal, EPrizeType.InvertedDiagonal], // Remove "T" e "+"
+    80: [EPrizeType.TShape],
+    75: [],
+    50: [],
+    30: [],
+  };
+  get filteredPrizeTypes(): EPrizeType[] {
+    const excludedPrizes = this.excludedPrizesByMaxBalls[this.maxBalls()] || [];
+    return this.prizeTypes.filter(type => !excludedPrizes.includes(type));
   }
   addPrize() {
     const prizeForm = this.fb.group({

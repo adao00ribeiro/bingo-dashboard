@@ -1,11 +1,11 @@
-<form [formGroup]="prizeForm">
+<form class="form" [formGroup]="prizeForm">
 <div class="prizes" formArrayName="prizes">
   @for (item of prizes.controls; track $index) {
   <div class="prize-item" [formGroupName]="$index">
     <mat-form-field>
       <mat-label>Tipo</mat-label>
       <mat-select formControlName="tipo">
-        @for (prize of  prizeTypes ; track $index) {
+        @for (prize of  filteredPrizeTypes ; track $index) {
           <mat-option [value]="prize"> {{ prizeTypeTranslations[prize] }}</mat-option>
         }
       </mat-select>
@@ -19,7 +19,6 @@
     </button>
   </div>
 }
-  <button class="btn-primary" type="button" (click)="addPrize()">Adicionar Prêmio</button>
 </div>
-
+<button class="btn-primary" type="button" (click)="addPrize()">Adicionar Prêmio</button>
 </form>

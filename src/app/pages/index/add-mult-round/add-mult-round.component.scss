@@ -1,11 +1,33 @@
-.group {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  justify-content: space-between;
-  flex: 1;
+:host {
+  h2 {
+    color: white;
+  }
 
-  .example-full-width {
-    width: 100%;
+  button {
+    padding: 1rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    .group {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: space-between;
+      flex: 1;
+
+      .example-full-width {
+        width: 100%;
+      }
+    }
+
+    .footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px; /* Espaçamento entre os botões */
+    }
   }
 }

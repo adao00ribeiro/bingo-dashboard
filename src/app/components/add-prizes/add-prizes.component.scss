@@ -1,9 +1,15 @@
+.form{
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
+
 .prizes {
   padding: 0.3rem;
   background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
+  overflow-y: auto; // Esconde qualquer conteúdo que ultrapasse os limites
+  max-height: 350px; // Define uma altura máxima para garantir que o overflow funcione
   h2 {
     margin-bottom: 1rem;
     font-size: 1.2rem;
@@ -36,4 +42,5 @@
       }
     }
   }
+}
 }

@@ -1,5 +1,6 @@
+import { EPrizeType } from "../enums/EPrizeType";
 export interface IPrize {
-  id: string,
+  id?: string,
   value:number,
-
+  type : EPrizeType
 }

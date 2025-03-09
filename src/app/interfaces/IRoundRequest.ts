@@ -3,7 +3,6 @@ import { IPrize } from "./IPrize";
 import { IRoom } from "./IRoom";
 
 export interface IRoundRequest {
-
   cardValue: number;
   cardRows: number;
   cardColumns: number;
@@ -11,4 +10,5 @@ export interface IRoundRequest {
   maxBalls: number;
   timeBetweenBalls:number;
   roomId: string;
+  prizes?: IPrize[]
 }
