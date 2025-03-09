@@ -1,13 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
 import { AddPrizesComponent } from "../../../components/add-prizes/add-prizes.component";
 import { maxBalls } from '../add-round/add-round.component';
+import { IRoundBulk } from '../../../interfaces/IRoundBulk';
+import { IPrize } from '../../../interfaces/IPrize';
+import { RoundService } from '../../../services/round/round.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-add-mult-round',
@@ -17,24 +20,83 @@ import { maxBalls } from '../add-round/add-round.component';
 })
 export class AddMultRoundComponent {
   roundForm: FormGroup;
+  private readonly roundService = inject(RoundService);
   protected readonly roomService = inject(RoomService);
   private router: Router = inject(Router);
-
+ readonly snackBar = inject(MatSnackBar);
   constructor(private fb: FormBuilder) {
-    this.roundForm = this.fb.group({
+       this.roundForm = this.fb.group({
       roomId: ['', [Validators.required]],
-      startedDate: [new Date().toISOString(), [Validators.required]],
       cardValue: [0.20, [Validators.required]],
+      startedDate: [new Date().toISOString().split('T')[0], [Validators.required]],
+      finishedDate: [new Date().toISOString().split('T')[0], [Validators.required]],
+      startedTime: ["07:00", [Validators.required]],
+      finishedTime: ["23:00", [Validators.required]],
       timeBetweenBalls: [4, [Validators.required, Validators.min(4)]],
+      timeBetweenRounds: [10, [Validators.required, Validators.min(10)]],
       maxBalls: [this.maxBalls[0].value, [Validators.required]],
-      prizes: this.fb.array([]) // Array para prêmios
+      prizes: this.fb.array([], prizesRequiredValidator()) // Aplica o validador
     });
   }
 
   ngOnInit(): void {
     this.roomService.loadRooms();
   }
+  handleAddRoundClick() {
+    const prizes =   this.roundForm.get('prizes') as FormArray
+    if (prizes.length === 0) {
+      this.snackBar.open('O campo de prêmios não pode estar vazio!', 'Fechar', {
+        duration: 3000, // A mensagem fica visível por 3 segundos
+        panelClass: ['error-snackbar']
+      });
+      return;
+    }
+    if(this.roundForm.invalid){
+      return;
+    }
+    const rowCol = this.getRowCol( this.roundForm.value.maxBalls);
+    const bulkData: IRoundBulk = {
+      roomId: this.roundForm.value.roomId,
+      cardValue: parseFloat(this.roundForm.value.cardValue),
+      startedDate: this.roundForm.value.startedDate,
+      finishedDate: this.roundForm.value.finishedDate,
+      startedTime: this.roundForm.value.startedTime,
+      finishedTime: this.roundForm.value.finishedTime,
+      timeBetweenBalls: parseInt(this.roundForm.value.timeBetweenBalls),
+      timeBetweenRounds: parseInt(this.roundForm.value.timeBetweenRounds),
+      maxBalls: parseInt(this.roundForm.value.maxBalls),
+      cardRows: rowCol.rows ,
+      cardColumns: rowCol.cols,
+      prizes:  prizes.controls.map(x => ({
+        type: x.value.tipo,  // Certifique-se de que "tipo" é o nome correto do campo no FormGroup
+        value: x.value.value
+      }) as IPrize)
 
+    };
+
+    this.roundService.CreateBulk(bulkData).subscribe({
+      next: (data) => {
+          console.log(data);
+      },
+      error: (err) => {
+        this.snackBar.open(err.error.detail, 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: 'error-snackbar',
+        });
+      },
+      complete: () => {
+        this.snackBar.open("Rodadas Adicionado com Sucesso", 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: ['sucess-snackbar'],
+        });
+        this.router.navigate(['/rounds']);
+      }
+    });
+  }
   maxBalls: maxBalls[] = [
     { value: 90, view: '90' },
     { value: 80, view: '80' },
@@ -56,4 +118,12 @@ export class AddMultRoundComponent {
   onPrizesChange(updatedPrizes: FormArray) {
     this.roundForm.setControl('prizes', updatedPrizes);
   }
+}
+export function prizesRequiredValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value && control.value.length > 0) {
+      return null; // Válido se tiver ao menos um prêmio
+    }
+    return { 'prizesRequired': true }; // Retorna um erro caso o array esteja vazio
+  };
 }

@@ -1,4 +1,4 @@
-  <form class="form" [formGroup]="roundForm">
+  <form class="form" [formGroup]="roundForm"  (ngSubmit)="handleAddRoundClick()">
       <mat-form-field>
         <mat-label>Sala</mat-label>
         <mat-select name="food" formControlName="roomId">
@@ -18,31 +18,39 @@
       </mat-form-field>
      <mat-form-field class="example-full-width">
         <mat-label>Data Final</mat-label>
-        <input type="date" matInput formControlName="startedDate">
+        <input type="date" matInput formControlName="finishedDate">
       </mat-form-field>
     </div>
     <div class="group">
       <mat-form-field class="example-full-width">
         <mat-label>Horario Inicio</mat-label>
-        <input type="time" matInput formControlName="startedDate">
+        <input type="time" matInput formControlName="startedTime">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Horario Final</mat-label>
-        <input type="time" matInput formControlName="startedDate">
+        <input type="time" matInput formControlName="finishedTime">
       </mat-form-field>
     </div>
+    <mat-form-field class="example-full-width">
+      <mat-label>Quantidade de numeros</mat-label>
+      <mat-select name="food" formControlName="maxBalls">
+        @for (max of maxBalls; track max) {
+          <mat-option [value]="max.value">{{max.view}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <div class="group">
       <mat-form-field class="example-full-width">
         <mat-label>Tempo entre as rodadas</mat-label>
-        <input matInput placeholder="Ex. Pizza" value="4" formControlName="timeBetweenBalls">
+        <input matInput placeholder="Ex. Pizza" formControlName="timeBetweenBalls">
       </mat-form-field>
       <mat-form-field class="example-full-width">
         <mat-label>Tempo entre os numeros</mat-label>
-        <input matInput placeholder="Ex. Pizza" value="4" formControlName="timeBetweenBalls">
+        <input matInput placeholder="Ex. Pizza"  formControlName="timeBetweenRounds">
       </mat-form-field>
     </div>
     <h2>Prêmios</h2>
-    <app-add-prizes [maxBalls]="0" (prizesChange)="onPrizesChange($event)"></app-add-prizes>
+    <app-add-prizes [maxBalls]="roundForm.value.maxBalls" (prizesChange)="onPrizesChange($event)"></app-add-prizes>
     <footer class="footer">
       <button class="btn-second">CANCELAR</button>
       <button class="btn-primary" type="submit">Adicionar</button>
