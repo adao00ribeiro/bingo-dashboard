@@ -1,13 +1,17 @@
 import { Component, computed, effect, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import {} from '@angular/common/http';
 import { SocketService } from './services/socket/socket.service';
 import { CurrencyPipe } from './pipes/currency.pipe';
 import { GuidPipe } from './pipes/guid.pipe';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule],
+  imports: [RouterOutlet, 
+// TODO: `HttpClientModule` should not be imported into a component directly.
+// Please refactor the code to add `provideHttpClient()` call to the provider list in the
+// application bootstrap logic and remove the `HttpClientModule` import from this component.
+HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [CurrencyPipe, GuidPipe],
