@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, effect, inject, Input, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, signal, ViewChild } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,9 +13,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/dialog-deposit.component';
 import { ISeller } from '../../interfaces/ISeller';
 import { SellerService } from '../../services/seller/seller.service';
+import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
     selector: 'app-index',
-    imports: [MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CurrencyPipe],
+    imports: [MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CurrencyPipe],
     templateUrl: './index.component.html',
     styleUrl: './index.component.scss'
 })
@@ -27,7 +28,7 @@ export class IndexComponent {
   private router: Router = inject(Router);
   readonly dialog = inject(MatDialog);
   private _mobileQueryListener: () => void;
-
+  readonly panelOpenState = signal(false);
   isVisible: boolean = true;
   public readonly sellerService = inject(SellerService);
 

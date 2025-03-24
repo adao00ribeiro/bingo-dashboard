@@ -1,0 +1,63 @@
+.status-chip-container {
+  display: inline-block;
+}
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  height: 32px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+
+.status-text {
+  margin-right: 4px;
+}
+
+.status-icon {
+  font-size: 18px;
+  height: 18px;
+  width: 18px;
+  line-height: 18px;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.status-pending {
+  background-color: #FFC107;
+  color: #000;
+}
+
+.status-processing {
+  background-color: #2196F3;
+  color: white;
+}
+
+.status-completed {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-failed {
+  background-color: #F44336;
+  color: white;
+}
+
+.status-cancelled {
+  background-color: #9E9E9E;
+  color: white;
+}
+
+.selected {
+  background-color: rgba(0, 0, 0, 0.04);
+}

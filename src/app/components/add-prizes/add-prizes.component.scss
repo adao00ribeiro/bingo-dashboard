@@ -43,4 +43,13 @@ gap: 0.5rem;
     }
   }
 }
+.container-prizes{
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+
+  button{
+    flex: 1;
+  }
+}
 }

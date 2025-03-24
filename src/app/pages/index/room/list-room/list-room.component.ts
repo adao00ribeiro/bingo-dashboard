@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { TableComponent } from '../../../components/table/table.component';
-import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
+import { TableComponent } from '../../../../components/table/table.component';
+import { RoomService } from '../../../../services/room.service';
 
 @Component({
     selector: 'app-list-room',
@@ -15,8 +15,8 @@ export class ListRoomComponent implements OnInit {
  private router: Router = inject(Router);
 
   columnConfigs = [
-    { key: 'id', displayName: 'ID', pipe: "guid" },
-    { key: 'name', displayName: 'Nome' },
+    { key: 'id', displayName: 'ID', pipe: "guid",position:1 },
+    { key: 'name', displayName: 'Nome' ,position:2},
 
   ];
   ngOnInit(): void {

@@ -3,15 +3,15 @@ import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { IRoom } from '../../../interfaces/IRoom';
-import { IRoundRequest } from '../../../interfaces/IRoundRequest';
-import { RoundService } from '../../../services/round/round.service';
+import { IRoom } from '../../../../interfaces/IRoom';
+import { IRoundRequest } from '../../../../interfaces/IRoundRequest';
+import { RoundService } from '../../../../services/round/round.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RoomService } from '../../../services/room.service';
+import { RoomService } from '../../../../services/room.service';
 import { Router } from '@angular/router';
 
-import { AddPrizesComponent } from '../../../components/add-prizes/add-prizes.component';
-import { IPrize } from '../../../interfaces/IPrize';
+import { AddPrizesComponent } from '../../../../components/add-prizes/add-prizes.component';
+import { IPrize } from '../../../../interfaces/IPrize';
 
 export interface maxBalls {
   value: number,

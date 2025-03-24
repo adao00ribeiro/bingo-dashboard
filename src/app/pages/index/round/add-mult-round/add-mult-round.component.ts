@@ -3,13 +3,13 @@ import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, Reacti
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RoomService } from '../../../services/room.service';
+import { RoomService } from '../../../../services/room.service';
 import { Router } from '@angular/router';
-import { AddPrizesComponent } from "../../../components/add-prizes/add-prizes.component";
+import { AddPrizesComponent } from "../../../../components/add-prizes/add-prizes.component";
 import { maxBalls } from '../add-round/add-round.component';
-import { IRoundBulk } from '../../../interfaces/IRoundBulk';
-import { IPrize } from '../../../interfaces/IPrize';
-import { RoundService } from '../../../services/round/round.service';
+import { IRoundBulk } from '../../../../interfaces/IRoundBulk';
+import { IPrize } from '../../../../interfaces/IPrize';
+import { RoundService } from '../../../../services/round/round.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

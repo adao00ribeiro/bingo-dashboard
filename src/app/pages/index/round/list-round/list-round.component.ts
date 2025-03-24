@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RoundService } from '../../../services/round/round.service';
+import { RoundService } from '../../../../services/round/round.service';
 import { Router } from '@angular/router';
-import { TableComponent } from '../../../components/table/table.component';
+import { TableComponent } from '../../../../components/table/table.component';
 
 @Component({
     selector: 'app-list-round',
@@ -14,11 +14,11 @@ export class ListRoundComponent implements OnInit {
  private router: Router = inject(Router);
 
   columnConfigs = [
-    { key: 'id', displayName: 'ID', pipe: "guid" },
-    { key: 'cardValue', displayName: 'Valor Cartela' , pipe: "currency" },
-    { key: 'startedDate', displayName: 'Data Inicial'  },
-    { key: 'maxBalls', displayName: 'Numero Maximo'  },
-    { key: 'cardSaleCount', displayName: 'Vendidos' },
+    { key: 'id', displayName: 'ID', pipe: "guid",position:1},
+    { key: 'cardValue', displayName: 'Valor Cartela' , pipe: "currency" ,position:2},
+    { key: 'startedDate', displayName: 'Data Inicial' , pipe:"dateTime"  ,position:3},
+    { key: 'maxBalls', displayName: 'Numero Maximo' ,position:4},
+    { key: 'cardSaleCount', displayName: 'Vendidos' ,position:5}
   ];
   ngOnInit(): void {
     this.roundService.loadRounds();

@@ -26,11 +26,11 @@ export class AddPrizesComponent {
      [EPrizeType.InvertedDiagonal]: "Diagonal Invertida",
      [EPrizeType.DoubleLine]: "Duas Linhas",
      [EPrizeType.DoubleColumn]: "Duas Colunas",
-     [EPrizeType.FullCard]: "Cartela Cheia",
      [EPrizeType.TShape]: "Formato de T",
      [EPrizeType.XShape]: "Formato de X",
      [EPrizeType.PlusShape]: "Formato de +",
-     [EPrizeType.OuterEdge]: "Borda Externa"
+     [EPrizeType.OuterEdge]: "Borda Externa",
+     [EPrizeType.FullCard]: "Cartela Cheia",
    };
    maxBalls = input.required<number>()
    prizesChange = output<FormArray>();
@@ -60,6 +60,17 @@ export class AddPrizesComponent {
     });
     this.prizes.push(prizeForm);
     this.prizesChange.emit(this.prizes)
+  }
+  addAllPrizes(){
+    Object.entries(this.prizeTypeTranslations).forEach(([key, label]) => {
+      const prizeForm = this.fb.group({
+        tipo: [key, Validators.required],
+        value: [0, [Validators.required, Validators.min(0)]]
+      });
+      this.prizes.push(prizeForm);
+    });
+
+    this.prizesChange.emit(this.prizes);
   }
   removePrize(index: number) {
     this.prizes.removeAt(index);

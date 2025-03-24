@@ -1,0 +1,16 @@
+
+ <div class="status-chip-container">
+      <div class="status-chip" [matMenuTriggerFor]="statusMenu" [ngClass]="getStatusClass(currentStatus)" matRipple>
+        <span class="status-text">{{ getStatusLabel(currentStatus) }}</span>
+        <mat-icon class="status-icon">arrow_drop_down</mat-icon>
+      </div>
+
+      <mat-menu class="status-menu" #statusMenu="matMenu">
+        @for (status of statusOptions; track status) {
+          <button mat-menu-item [ngClass]="{'selected': status === currentStatus}" (click)="onStatusChange(status)">
+            <div class="status-indicator" [ngClass]="getStatusClass(status)"></div>
+            <span>{{ getStatusLabel(status) }}</span>
+          </button>
+        }
+      </mat-menu>
+    </div>
