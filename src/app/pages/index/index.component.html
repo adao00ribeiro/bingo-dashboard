@@ -7,12 +7,6 @@
       <h1 class="example-app-name text">Dashboard</h1>
     </div>
     <div class="toolbar-right">
-      <button class="btn-visibility" (click)="handleVisibity()">
-        <mat-icon>{{ isVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
-      </button>
-      <button class="btn-wallet" [matMenuTriggerFor]="belowMenuDeposit">
-        {{ isVisible ? (seller?.balance | currency) : '**********' }}
-      </button>
       <mat-menu class="mat-menu-item" #belowMenuDeposit="matMenu" yPosition="below">
         <button mat-menu-item (click)="deposit()">
           <mat-icon>payments</mat-icon>

@@ -1,16 +1,21 @@
+<div class="status-chip-container">
 
- <div class="status-chip-container">
-      <div class="status-chip" [matMenuTriggerFor]="statusMenu" [ngClass]="getStatusClass(currentStatus)" matRipple>
+  @if(!isDisabled){
+    <div class="status-chip" [ngClass]="getStatusClass(currentStatus)" matRipple [matMenuTriggerFor]="statusMenu">
+    <span class="status-text">{{ getStatusLabel(currentStatus) }}</span>
+    <mat-icon class="status-icon">arrow_drop_down</mat-icon>
+  </div>
+  }@else {
+      <div class="status-chip" [ngClass]="getStatusClass(currentStatus)">
         <span class="status-text">{{ getStatusLabel(currentStatus) }}</span>
-        <mat-icon class="status-icon">arrow_drop_down</mat-icon>
       </div>
-
-      <mat-menu class="status-menu" #statusMenu="matMenu">
-        @for (status of statusOptions; track status) {
-          <button mat-menu-item [ngClass]="{'selected': status === currentStatus}" (click)="onStatusChange(status)">
-            <div class="status-indicator" [ngClass]="getStatusClass(status)"></div>
-            <span>{{ getStatusLabel(status) }}</span>
-          </button>
-        }
-      </mat-menu>
-    </div>
+  }
+  <mat-menu class="status-menu" #statusMenu="matMenu">
+    @for (status of statusOptions; track status) {
+      <button mat-menu-item [ngClass]="{'selected': status === currentStatus}" (click)="onStatusChange(status)" [disabled]="isDisabled">
+        <div class="status-indicator" [ngClass]="getStatusClass(status)"></div>
+        <span>{{ getStatusLabel(status) }}</span>
+      </button>
+    }
+  </mat-menu>
+</div>

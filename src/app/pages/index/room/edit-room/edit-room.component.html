@@ -1,0 +1,11 @@
+<h1>Editar Sala</h1>
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  <mat-form-field class="example-full-width">
+    <mat-label>Nome</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <div class="container-buttons">
+    <button type="submit" mat-flat-button>Cancelar</button>
+    <button class="btn-primary" type="submit" mat-flat-button>OK</button>
+  </div>
+</form>

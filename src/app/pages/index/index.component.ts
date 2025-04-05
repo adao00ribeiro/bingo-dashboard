@@ -8,7 +8,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterOutlet } from '@angular/router';
 import { ButtonMenuComponent } from '../../components/button-menu/button-menu.component';
-import { CurrencyPipe } from '../../pipes/currency.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/dialog-deposit.component';
 import { ISeller } from '../../interfaces/ISeller';
@@ -16,7 +15,7 @@ import { SellerService } from '../../services/seller/seller.service';
 import {MatExpansionModule} from '@angular/material/expansion';
 @Component({
     selector: 'app-index',
-    imports: [MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule, CurrencyPipe],
+    imports: [MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
     templateUrl: './index.component.html',
     styleUrl: './index.component.scss'
 })
@@ -29,7 +28,7 @@ export class IndexComponent {
   readonly dialog = inject(MatDialog);
   private _mobileQueryListener: () => void;
   readonly panelOpenState = signal(false);
-  isVisible: boolean = true;
+
   public readonly sellerService = inject(SellerService);
 
   seller: ISeller | null = null;
@@ -55,9 +54,7 @@ export class IndexComponent {
   handleClick(route: string) {
     this.router.navigate([route]);
   }
-  handleVisibity() {
-    this.isVisible = !this.isVisible;
-  }
+
   deposit() {
     this.dialog.open(DialogDepositComponent, {
       disableClose: true,

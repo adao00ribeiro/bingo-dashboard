@@ -1,3 +1,11 @@
+<div class="container">
+  <div class="header">
+    <h2>{{title}}</h2>
+    @if(enabledBtn){
+    <button class="btn-add" (click)="handleClick()">Add</button>
+    }
+  </div>
+
 <mat-form-field class="input-filter">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -25,8 +33,9 @@
       </ng-container>
     }
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleDetail(row)"></tr>
   </table>
 </section>
 <mat-paginator aria-label="Select page of periodic elements" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
 </mat-paginator>
+</div>

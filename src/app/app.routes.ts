@@ -10,6 +10,7 @@ import { ListRoundComponent } from './pages/index/round/list-round/list-round.co
 import { ListRoomComponent } from './pages/index/room/list-room/list-room.component';
 import { RoundTabsComponent } from './pages/index/round/round-tabs/round-tabs.component';
 import { PunterRechargeComponent } from './pages/index/punter-recharge/punter-recharge.component';
+import { EditRoomComponent } from './pages/index/room/edit-room/edit-room.component';
 
 
 export const routes: Routes = [
@@ -34,6 +35,10 @@ export const routes: Routes = [
       {
         path: 'addrooms',
         component: AddRoomComponent,
+      },
+      {
+        path: 'editroom/:id',
+        component: EditRoomComponent,
       },
       {
         path: 'rounds',

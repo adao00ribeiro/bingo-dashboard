@@ -1,7 +1,7 @@
 import { ERechargeStatus } from "../enums/ERechargeStatus";
 
 export interface IRecharge {
-      id?: string,
+      id: string,
       value :number
       status : ERechargeStatus.PENDING;
       qrcode : string,

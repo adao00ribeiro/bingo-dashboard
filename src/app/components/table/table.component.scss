@@ -5,7 +5,25 @@
   height:70vh;
   max-height: calc(80vh - 5rem);
   overflow: auto;
+  gap: 1rem;
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 
+    h2{
+      padding: 0;
+      margin: 0;
+      color: white;
+    }
+    .btn-add{
+      width: 100px;
+      background-color: var(--color-primary);
+      color: var(--text-color);
+      padding: 0.5rem;
+    }
+  }
   ::ng-deep .mat-mdc-table {
     font-size: 0.9em;
     font-family: sans-serif;

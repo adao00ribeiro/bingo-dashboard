@@ -4,6 +4,7 @@ import { RoundService } from "../../services/round/round.service";
 import { IRound } from "../../interfaces/IRound";
 import { BaseHttpResourceService } from "../base-http-resource.service";
 import { IRecharge } from "../../interfaces/IRecharge";
+import { IPaged } from "../../interfaces/IPaged";
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class RechargesResourceService extends BaseHttpResourceService {
   resource = rxResource({
     request: () => ({}), // Pode ser um objeto vazio caso não precise de parâmetros
     loader: () => {
-     return this.httpClient.get<IRecharge[]>(this.url + "/recharge")
+     return this.httpClient.get<IPaged>(this.url + "/recharge")
     },
   });
 

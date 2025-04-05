@@ -1,18 +1,11 @@
 
-<div class="container">
-  <div class="header">
-    <h2>Caixa Apostadores</h2>
-  </div>
   <app-table
-  [columnMappings]="columnConfigs"
-  [data]="recharges()"
-  >
-  <ng-template column="status" let-row  let-element>
-      <app-status-chip
-      [currentStatus]="element.status"
-      (statusChange)="handleButtonClick(element)">>
+  title="Caixa Apostador"
+  [enabledBtn]="false"
+  [columnMappings]="columnConfigs" [data]="recharges()">
+  <ng-template column="status" let-row let-element>
+      <app-status-chip [currentStatus]="element.status" (statusChange)="handleButtonClick(element)">>
     </app-status-chip>
   </ng-template>
-
   </app-table>
-</div>
+

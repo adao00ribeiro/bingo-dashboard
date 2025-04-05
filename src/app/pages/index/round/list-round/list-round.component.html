@@ -1,11 +1,11 @@
 
-<div class="container">
-  <div class="header">
-    <h2>Rodadas</h2>
-    <button class="btn-primary" (click)="addRodada()">Add Rodada</button>
-  </div>
+
   <app-table
+  title="Rodadas"
   [columnMappings]="columnConfigs"
-  [data]="roundService.rounds()">
+  [data]="roundService.rounds()"
+  (onClick)="addRodada()"
+  >
+
   ></app-table>
-</div>
+

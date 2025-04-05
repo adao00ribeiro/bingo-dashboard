@@ -5,6 +5,7 @@ import { IRecharge } from '../../../interfaces/IRecharge';
 import { ButtonMenuComponent } from '../../../components/button-menu/button-menu.component';
 import { StatusChipComponent } from '../../../components/status-chip/status-chip.component';
 import { ERechargeStatus } from '../../../enums/ERechargeStatus';
+import { UpdateRechargeByIdResourceService } from '../../../resource/recharge/update-recharge-by-id.service';
 
 @Component({
   selector: 'app-punter-recharge',
@@ -14,7 +15,9 @@ import { ERechargeStatus } from '../../../enums/ERechargeStatus';
 })
 export class PunterRechargeComponent {
   protected readonly rechargeResourceService = inject(RechargesResourceService);
-  recharges = computed(() => this.rechargeResourceService.resource.value() || [] );
+  protected readonly updateRechargeByIdResourceService = inject(UpdateRechargeByIdResourceService);
+
+  recharges = computed(() => this.rechargeResourceService.resource.value()?.items || [] );
   rechargeType = ERechargeStatus.COMPLETED
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid" },
@@ -26,12 +29,11 @@ export class PunterRechargeComponent {
 
   constructor(){
     effect(()=>{
-      console.log( this.rechargeResourceService.resource.value());
+      this.updateRechargeByIdResourceService.resource.value();
 
     })
   }
   handleButtonClick(recharge: IRecharge) {
-    console.log('Botão clicado para:', recharge);
-    // Adicione a lógica que deseja executar ao clicar no botão
+     this.updateRechargeByIdResourceService.reload(recharge)
   }
 }

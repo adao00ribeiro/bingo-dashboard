@@ -26,4 +26,7 @@ export class ListRoomComponent implements OnInit {
   addSala(){
     this.router.navigate(['/addrooms']);
   }
+  editRoom(room : any){
+    this.router.navigate(['/editroom', room.id]);
+  }
 }

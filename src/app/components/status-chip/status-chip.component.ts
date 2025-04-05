@@ -24,6 +24,11 @@ export class StatusChipComponent {
   @Output() statusChange = new EventEmitter<ERechargeStatus>();
 
   statusOptions: ERechargeStatus[] = Object.values(ERechargeStatus);
+
+
+  get isDisabled(): boolean {
+    return this.disabled || this.currentStatus === ERechargeStatus.COMPLETED;
+  }
   getStatusClass(status: ERechargeStatus): string {
     switch (status) {
       case ERechargeStatus.PENDING:

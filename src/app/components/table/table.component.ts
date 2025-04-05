@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, inject, Input, OnInit, QueryList, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, inject, Input, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatColumnDef, MatTable, MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { DynamicPipe } from '../../pipes/dynamic.pipe';
@@ -8,10 +8,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-
-
-
-
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -32,8 +29,13 @@ import { CommonModule } from '@angular/common';
 })
 
 export class TableComponent<T extends object> implements OnInit, AfterViewInit{
+
+  @Input() title: string = '';
   @Input() columnMappings: { key: string; displayName: string , pipe?: string }[] = [];
   @Input() data: T[] = [];
+  @Input() enabledBtn : boolean = true
+  @Output() onClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() changeEdit: EventEmitter<T> = new EventEmitter<T>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ContentChildren(TemplateRef) columnTemplatesList!: QueryList<TemplateRef<any>>;
@@ -110,5 +112,10 @@ export class TableComponent<T extends object> implements OnInit, AfterViewInit{
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  handleClick() {
+   this.onClick.emit();
+    }
+    handleDetail(row: T) {
+      this.changeEdit.emit(row);
+      }
 }
