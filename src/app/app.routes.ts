@@ -11,6 +11,7 @@ import { ListRoomComponent } from './pages/index/room/list-room/list-room.compon
 import { RoundTabsComponent } from './pages/index/round/round-tabs/round-tabs.component';
 import { PunterRechargeComponent } from './pages/index/punter-recharge/punter-recharge.component';
 import { EditRoomComponent } from './pages/index/room/edit-room/edit-room.component';
+import { CustomizeColorsComponent } from './pages/index/customize-colors/customize-colors.component';
 
 
 export const routes: Routes = [
@@ -55,6 +56,10 @@ export const routes: Routes = [
       {
         path: 'recharges',
         component: PunterRechargeComponent,
+      },
+      {
+        path: 'customize-colors',
+        component: CustomizeColorsComponent,
       },
     ],
   },
