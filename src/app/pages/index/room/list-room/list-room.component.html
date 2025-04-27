@@ -2,6 +2,7 @@
   title="Salas"
   [columnMappings]="columnConfigs"
   [data]="roomService.rooms()"
+  (onClick)="addSala()"
   (changeEdit)="editRoom($event)"
   >
   ></app-table>

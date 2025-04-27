@@ -1,18 +1,15 @@
-<form class="form">
+<form class="form" (submit)="addRoom()">
   <h1>Adicionar Sala</h1>
-  <div class="group">
-    <mat-form-field class="example-full-width">
-      <mat-label>Favorite food</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Favorite food</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi">
-    </mat-form-field>
-  </div>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Leave a comment</mat-label>
-    <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
-  </mat-form-field>
+  <section class="section">
+    <div class="group">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Sala Dev" >
+      </mat-form-field>
+    </div>
+  </section>
+  <footer class="footer">
+    <button type="button" class="btn-second" (click)="cancelar()">Cancelar</button>
+    <button class="btn-primary" type="submit">Adicionar</button>
+  </footer>
 </form>
