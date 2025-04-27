@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RegisterService {
-   private url = `${environment.api}/api/v1/identity/cadastro/punter`
+   private url = `${environment.api}/api/v1/identity/cadastro/seller`
    private httpClient: HttpClient = inject(HttpClient);
 
 
