@@ -1,0 +1,32 @@
+<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+    <mat-checkbox class="example-margin"  formControlName="enabled">
+      {{ !editForm.get('enabled')?.value ? "Ativar" : "Desativar" }}
+    </mat-checkbox>
+    <mat-checkbox class="example-margin" formControlName="enabled">
+      Incrementar 1 bola no acumulado a cada partida
+    </mat-checkbox>
+  <mat-form-field class="example-full-width">
+    <mat-label>Valor Minimo</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Valor Atual</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Valor Maximo</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Porcentagem Acumulada</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Numero Maximo de Bolas</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <div class="container-buttons">
+    <button type="button" mat-flat-button (click)="onClickCancel.emit()">Cancelar</button>
+    <button class="btn-primary" type="submit" mat-flat-button>OK</button>
+  </div>
+</form>

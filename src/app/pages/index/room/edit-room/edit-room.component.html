@@ -1,12 +1,12 @@
 <h1>Editar Sala</h1>
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="example-full-width">
-    <mat-label>Nome</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
-
-  <div class="container-buttons">
-    <button type="submit" mat-flat-button>Cancelar</button>
-    <button class="btn-primary" type="submit" mat-flat-button>OK</button>
-  </div>
-</form>
+<mat-tab-group dynamicHeight class="group" >
+  <mat-tab label="Geral"  class="tab" >
+     <app-geral-room class="tab-content" [id]="id()" (onClickCancel)="changeCancel()"></app-geral-room>
+  </mat-tab>
+  <mat-tab label="Config. Acumulado">
+    <app-edit-accumulated  (onClickCancel)="changeCancel()"></app-edit-accumulated>
+  </mat-tab>
+  <mat-tab label="Config. Bots">
+    <app-edit-config-bots  (onClickCancel)="changeCancel()"></app-edit-config-bots>
+  </mat-tab>
+</mat-tab-group>

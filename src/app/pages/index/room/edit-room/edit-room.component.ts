@@ -5,8 +5,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
-import { RoomByIdResourceService } from '../../../../resource/room/room-by-id-resource.service';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from '@angular/material/tabs';
+import { GeralRoomComponent } from "./components/geral-room/geral-room.component";
+import { EditAccumulatedComponent } from "./components/edit-accumulated/edit-accumulated.component";
+import { EditConfigBotsComponent } from "./components/edit-config-bots/edit-config-bots.component";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-room',
@@ -18,33 +22,22 @@ import { RoomByIdResourceService } from '../../../../resource/room/room-by-id-re
     MatIconModule,
     MatDividerModule,
     MatButtonModule,
-
-  ],
+    MatListModule,
+    MatDividerModule,
+    MatTabsModule,
+    GeralRoomComponent,
+    EditAccumulatedComponent,
+    EditConfigBotsComponent
+],
   templateUrl: './edit-room.component.html',
   styleUrl: './edit-room.component.scss'
 })
-export class EditRoomComponent implements OnInit{
+export class EditRoomComponent {
   id = input('');
-   editForm: FormGroup;
-
-  readonly roomByIdResource : RoomByIdResourceService = inject(RoomByIdResourceService)
+  private readonly router: Router = inject(Router);
 
 
-   constructor(private fb: FormBuilder) {
-       this.editForm = this.fb.group({
-         name: ['', [Validators.required]],
-       });
-
-       effect(()=>{
-       let room =  this.roomByIdResource.resource.value()
-       this.editForm.patchValue({
-        name: room?.name
-      });
-       })
-     }
-  ngOnInit(): void {
-    this.roomByIdResource.loadRoundById(this.id());
-  }
-
-  onSubmit() {}
+  changeCancel() {
+    this.router.navigate(['/rooms']);
+    }
 }
