@@ -1,12 +1,20 @@
 <h1>Editar Sala</h1>
 <mat-tab-group dynamicHeight class="group" >
   <mat-tab label="Geral"  class="tab" >
-     <app-geral-room class="tab-content" [id]="id()" (onClickCancel)="changeCancel()"></app-geral-room>
+     <ng-template matTabContent>
+      <app-geral-room class="tab-content" [id]="id()" (onClickCancel)="changeCancel()"></app-geral-room>
+    </ng-template>
   </mat-tab>
   <mat-tab label="Config. Acumulado">
-    <app-edit-accumulated  (onClickCancel)="changeCancel()"></app-edit-accumulated>
+    <ng-template matTabContent>
+      <app-edit-accumulated  (onClickCancel)="changeCancel()"></app-edit-accumulated>
+    </ng-template>
   </mat-tab>
   <mat-tab label="Config. Bots">
-    <app-edit-config-bots  (onClickCancel)="changeCancel()"></app-edit-config-bots>
+    <ng-template matTabContent>
+      <app-edit-config-bots [roomId]="id()" (onClickCancel)="changeCancel()">
+
+      </app-edit-config-bots>
+    </ng-template>
   </mat-tab>
 </mat-tab-group>
