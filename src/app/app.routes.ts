@@ -12,6 +12,7 @@ import { RoundTabsComponent } from './pages/index/round/round-tabs/round-tabs.co
 import { PunterRechargeComponent } from './pages/index/punter-recharge/punter-recharge.component';
 import { EditRoomComponent } from './pages/index/room/edit-room/edit-room.component';
 import { CustomizeColorsComponent } from './pages/index/customize-colors/customize-colors.component';
+import { ListPunterComponent } from './pages/index/punter/list-punter/list-punter.component';
 
 
 export const routes: Routes = [
@@ -28,6 +29,10 @@ export const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+      },
+      {
+        path: 'punters',
+        component: ListPunterComponent,
       },
       {
         path: 'rooms',

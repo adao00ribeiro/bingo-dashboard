@@ -1,7 +1,8 @@
 <app-table
-  title="Salas"
+  title="Apostadores"
   [columnMappings]="columnConfigs"
-  [data]="roomService.rooms()"
+  [data]="punters()"
   (onClick)="addSala()"
-  (changeEdit)="editRoom($event)">
+  (changeEdit)="editRoom($event)"
+  >
 </app-table>
