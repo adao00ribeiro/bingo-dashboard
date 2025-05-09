@@ -2,19 +2,17 @@
 <mat-tab-group dynamicHeight class="group" >
   <mat-tab label="Geral"  class="tab" >
      <ng-template matTabContent>
-      <app-geral-room class="tab-content" [id]="id()" (onClickCancel)="changeCancel()"></app-geral-room>
+      <app-geral-room class="tab-content" [id]="id()" (onClickCancel)="changeCancel()"/>
     </ng-template>
   </mat-tab>
   <mat-tab label="Config. Acumulado">
     <ng-template matTabContent>
-      <app-edit-accumulated  (onClickCancel)="changeCancel()"></app-edit-accumulated>
+      <app-edit-accumulated [roomId]="id()" (onClickCancel)="changeCancel()"/>
     </ng-template>
   </mat-tab>
   <mat-tab label="Config. Bots">
     <ng-template matTabContent>
-      <app-edit-config-bots [roomId]="id()" (onClickCancel)="changeCancel()">
-
-      </app-edit-config-bots>
+      <app-edit-config-bots [roomId]="id()" (onClickCancel)="changeCancel()"/>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

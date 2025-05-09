@@ -75,9 +75,7 @@ export class EditConfigBotsComponent implements OnInit {
     this.botConfigResourceService.loadBotConfigByRoomId(this.roomId());
   }
 
-
-
-async  onSubmit(): Promise<void> {
+  async onSubmit(): Promise<void> {
     if (this.editForm.invalid) return;
 
     const config: IBotConfig = this.editForm.value;
