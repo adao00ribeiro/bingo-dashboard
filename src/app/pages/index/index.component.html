@@ -48,12 +48,14 @@
         <app-button-menu descricao="Apostadores" (onClick)="handleClick('/punters')">
           <mat-icon>person_outline</mat-icon>
         </app-button-menu>
-        <app-button-menu descricao="Relatorio Rodadas" (onClick)="handleClick('/rounds')">
+        <app-button-menu descricao="Relatorio Rodadas" (onClick)="handleClick('/report-rounds')">
           <mat-icon>article</mat-icon>
         </app-button-menu>
+        @if(false){
         <app-button-menu descricao="Relatorio Salas" (onClick)="handleClick('/rounds')">
           <mat-icon>article</mat-icon>
         </app-button-menu>
+         }
         <app-button-menu descricao="Caixa Apostador" (onClick)="handleClick('/recharges')">
           <mat-icon>account_balance_wallet </mat-icon>
         </app-button-menu>

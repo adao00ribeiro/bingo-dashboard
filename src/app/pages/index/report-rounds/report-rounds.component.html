@@ -1,0 +1,22 @@
+<div class="form-container" [formGroup]="editForm">
+  <h1>Resumo Rodadas</h1>
+  <mat-form-field class="example-full-width">
+    <mat-label>Vendedor</mat-label>
+    <input matInput formControlName="sellers">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [formGroup]="editForm" [rangePicker]="picker">
+      <input matStartDate formControlName="start" placeholder="Start date">
+      <input matEndDate formControlName="end" placeholder="End date">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker=""></mat-date-range-picker>
+  </mat-form-field>
+  <mat-checkbox class="example-margin" formControlName="enabled">
+    Apenas Rodadas Finalizadas
+  </mat-checkbox>
+  <app-table [columnMappings]="columnConfigs" [data]="dataSource()" [enabledBtn]="false" (changeEdit)="editRoom($event)">
+  </app-table>
+
+</div>
