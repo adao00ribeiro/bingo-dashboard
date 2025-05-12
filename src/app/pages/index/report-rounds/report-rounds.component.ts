@@ -21,6 +21,11 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { debounceTime, startWith, switchMap } from 'rxjs';
+import { SellersResourceService } from '../../../resource/seller/sellers-resource.service';
+import { MatSelectModule } from '@angular/material/select';
+import { ReportRoundsService } from '../../../services/reports/report.service';
+import { IRoundReportItem } from '../../../interfaces/reports/IRoundReportItem';
+
 
 const moment = _rollupMoment || _moment;
 
@@ -54,7 +59,8 @@ export const MY_FORMATS = {
     MatDatepickerModule,
     MatCheckboxModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule
 
   ],
   providers: [provideMomentDateAdapter(MY_FORMATS)],
@@ -67,18 +73,31 @@ export class ReportRoundsComponent implements OnInit {
   onClickCancel = output<void>();
   checked = false;
   disabled = false;
-  dataSource = signal([])
+  dataSource = signal<IRoundReportItem[]>([])
 
   private router: Router = inject(Router);
+  protected sellerResourceService: SellersResourceService = inject(SellersResourceService);
+  protected reportRoundsService : ReportRoundsService = inject(ReportRoundsService);
 
   columnConfigs = [
-    { key: 'id', displayName: 'ID', pipe: "guid", position: 1 },
-    { key: 'name', displayName: 'Nome', position: 2 },
+    { key: 'roundId', displayName: 'Rodada',pipe: "guid"  },
+    { key: 'roundTime', displayName: 'Horario',pipe: "dateTime"  },
+    { key: 'cardSaleCount', displayName: 'Vendas Usuarios', },
+    { key: 'botSaleCount', displayName: 'Vendas Bots', },
+    { key: 'collected', displayName: 'Arrecadado Usuario',  pipe: "currency" },
+    { key: 'botCollected', displayName: 'Arrecadado Bots',  pipe: "currency" },
+    { key: 'userWinners', displayName: 'Usuarios Premiados'},
+    { key: 'botWinners', displayName: 'Bots Premiados', },
+    { key: 'userAwards', displayName: 'Premios Usuarios',  pipe: "currency" },
+    { key: 'botAwards', displayName: 'Premios Bots',  pipe: "currency" },
+    { key: 'totalPrizes', displayName: 'Total Premios',  pipe: "currency" },
+    { key: 'comissions', displayName: 'Despesa Comissoes',  pipe: "currency" },
+    { key: 'netValue', displayName: 'Lucro',  pipe: "currency" },
 
   ];
   constructor(private fb: FormBuilder) {
     this.editForm = this.fb.group({
-      sellers: ['', [Validators.required]],
+      sellersId: ['', [Validators.required]],
       start: ['', [Validators.required]],
       end: ['', [Validators.required]],
       enabled:  ['', [Validators.required]],
@@ -92,10 +111,26 @@ export class ReportRoundsComponent implements OnInit {
  this.editForm.valueChanges.pipe(
       startWith(this.editForm.value),
       debounceTime(300), // evita múltiplas chamadas em digitação rápida
-      switchMap(({ sellers, start, end, enabled }) =>
-         []
-      )
-    );
+     switchMap(formValues => {
+      const { sellersId, start, end, enabled } = formValues;
+      // Somente realiza a busca se o vendedor e as datas estiverem preenchidos
+      if (sellersId && start && end) {
+        const sellerIds = Array.isArray(sellersId) ? sellersId : [sellersId];
+        return this.reportRoundsService.Rounds({
+          sellerIds: sellerIds,
+          startingOn: start,
+          endingOn: end,
+          page: 1, // valor padrão para página
+          perPage: 10, // valor padrão para itens por página
+          orders: [] // array vazio para ordenação
+        });
+      }
+      // Retorna um array vazio se as condições não forem atendidas
+      return [];
+    })
+  ).subscribe(data => {
+    this.dataSource.set(data.rows);
+  });
 
   }
 
