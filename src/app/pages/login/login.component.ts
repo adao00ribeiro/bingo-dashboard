@@ -16,6 +16,8 @@ import { RouterLink, Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ILoginRequest } from '../../interfaces/ILoginRequest';
+import { StorageService } from '../../services/storage.service';
+import { STORAGE_REFRESH_TOKEN, STORAGE_TOKEN } from '../../constants/storage.service.constants';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +39,7 @@ export class LoginComponent {
   private loginService: LoginService = inject(LoginService);
   private snackBar: MatSnackBar = inject(MatSnackBar);
   private router: Router = inject(Router);
+  private storageService = inject(StorageService);
 
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
@@ -62,8 +65,9 @@ export class LoginComponent {
     };
     this.loginService.Login(loginRequest).subscribe({
       next: (data) => {
-        if (data.accessToken) {
-          sessionStorage.setItem("token-data", data.accessToken)
+        if (data.accessToken&& data.refreshToken) {
+             this.storageService.setSessionItem(STORAGE_TOKEN,data.accessToken)
+          this.storageService.setSessionItem(STORAGE_REFRESH_TOKEN,data.refreshToken)
         }
       },
       error: (err) => {

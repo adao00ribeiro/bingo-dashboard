@@ -1,18 +1,17 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-
+import { STORAGE_TOKEN } from '../constants/storage.service.constants';
+import { StorageService } from '../services/storage.service';
 export const authGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
-  const tokenData = sessionStorage.getItem('token-data');
-  if (!tokenData) {
-    router.navigateByUrl('/login');
-    return false;
-  }
-  try {
+    const storageService = inject(StorageService);
+    const tokenData = storageService.getSessionItem<string>(STORAGE_TOKEN);
+    const IsAuthentication = !!tokenData; // Transforma em um booleano (true se token existir)
+  if (IsAuthentication) {
+      try {
     const decoded = jwtDecode<{ role?: string }>(tokenData);
     const allowedRoles = ["Seller", "Admin"];
-    console.log(decoded)
     if (decoded.role && allowedRoles.includes(decoded.role)) {
       return true;
     }
@@ -23,4 +22,10 @@ export const authGuard: CanActivateFn = async (route, state) => {
     router.navigateByUrl('/login');
     return false;
   }
+
+  }else{
+    router.navigateByUrl('/login');
+    return false;
+  }
+
 };

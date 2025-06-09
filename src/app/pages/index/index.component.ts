@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, effect, inject, signal, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,13 +13,14 @@ import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/
 import { ISeller } from '../../interfaces/ISeller';
 import { SellerService } from '../../services/seller/seller.service';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { SellerMeResourceService } from '../../resource/seller/seller-me-resource.service';
 @Component({
     selector: 'app-index',
     imports: [MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
     templateUrl: './index.component.html',
     styleUrl: './index.component.scss'
 })
-export class IndexComponent {
+export class IndexComponent implements OnInit {
   @ViewChild('snav') sidenav!: MatSidenav; // Referência ao MatSidenav
   isSidenavOpen = true;
   showFiller = true;
@@ -29,7 +30,7 @@ export class IndexComponent {
   private _mobileQueryListener: () => void;
   readonly panelOpenState = signal(false);
 
-  public readonly sellerService = inject(SellerService);
+   protected readonly SellerMeResourceService = inject(SellerMeResourceService);
 
   seller: ISeller | null = null;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -38,16 +39,12 @@ export class IndexComponent {
     this.mobileQuery.addListener(this._mobileQueryListener);
 
     effect(() => {
-       this.sellerService.GetMe().subscribe({
-        next: (seller) => this.seller = seller ,
-        error: (error) => {
-          sessionStorage.removeItem('token-data');
-          console.error('Erro ao carregar Seller:', error)
-        },
-      })
+
     })
   }
-
+ ngOnInit(): void {
+    this.SellerMeResourceService.reload();
+  }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
