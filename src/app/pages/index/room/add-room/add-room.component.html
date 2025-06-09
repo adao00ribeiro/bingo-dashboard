@@ -1,15 +1,15 @@
-<form class="form" (submit)="addRoom()">
+<form class="form" [formGroup]="roomForm" (ngSubmit)="addRoom()">
   <h1>Adicionar Sala</h1>
   <section class="section">
     <div class="group">
       <mat-form-field class="example-full-width">
         <mat-label>Nome</mat-label>
-        <input matInput placeholder="Sala Dev" >
+        <input matInput placeholder="Sala Dev" formControlName="roomName">
       </mat-form-field>
     </div>
   </section>
   <footer class="footer">
     <button type="button" class="btn-second" (click)="cancelar()">Cancelar</button>
-    <button class="btn-primary" type="submit">Adicionar</button>
+    <button class="btn-primary" type="submit" >Adicionar</button>
   </footer>
 </form>

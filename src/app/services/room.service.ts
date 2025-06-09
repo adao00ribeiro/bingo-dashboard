@@ -3,6 +3,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { IRoom } from '../interfaces/IRoom';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { IRoomRequest } from '../interfaces/IRoomRequest';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,7 +24,7 @@ export class RoomService {
    return this.httpClient.get<IRoom[]>(this.url);
  }
 
- Create(room: IRoom): Observable<IRoom> {
+ Create(room: IRoomRequest): Observable<IRoom> {
    return this.httpClient.post<IRoom>(this.url, room);
  }
 
