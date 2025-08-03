@@ -23,7 +23,7 @@ export class PunterRechargeComponent {
     { key: 'id', displayName: 'ID', pipe: "guid" },
     { key: 'punter.name', displayName: 'Nome' },
     { key: 'value', displayName: 'Valor', pipe:"currency"},
-    { key: 'createAt', displayName: 'Data criação' , pipe: "dateTime" },
+    { key: 'createdAt', displayName: 'Data criação' , pipe: "dateTime" },
     { key: 'status', displayName: 'Status'}, // Adiciona a coluna "Status"
   ];
 

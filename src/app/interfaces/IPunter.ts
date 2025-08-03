@@ -5,6 +5,6 @@ export interface IPunter {
   name: string,
   balance:number
   prizeBalance:number
-  createAt : Date
+  createdAt : Date
   seller: ISeller
 }

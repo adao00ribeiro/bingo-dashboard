@@ -22,7 +22,7 @@ export class ListPunterComponent {
     { key: 'seller.email', displayName: 'Vendedor' },
     { key: 'balance', displayName: 'Saldo' , pipe: "currency"},
     { key: 'prizeBalance', displayName: 'Saldo Premios' , pipe: "currency"},
-    { key: 'createAt', displayName: 'Data de Cadastro' , pipe: "dateTime"},
+    { key: 'createdAt', displayName: 'Data de Cadastro' , pipe: "dateTime"},
 
   ];
   ngOnInit(): void {

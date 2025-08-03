@@ -3,27 +3,32 @@ import { CanActivateFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { STORAGE_TOKEN } from '../constants/storage.service.constants';
 import { StorageService } from '../services/storage.service';
+import { AclService } from '../services/acl.service';
+
 export const authGuard: CanActivateFn = async (route, state) => {
   const router = inject(Router);
-    const storageService = inject(StorageService);
-    const tokenData = storageService.getSessionItem<string>(STORAGE_TOKEN);
-    const IsAuthentication = !!tokenData; // Transforma em um booleano (true se token existir)
+  const storageService = inject(StorageService);
+  const aclService = inject(AclService);
+  const tokenData = storageService.getSessionItem<string>(STORAGE_TOKEN);
+  const IsAuthentication = !!tokenData; // Transforma em um booleano (true se token existir)
   if (IsAuthentication) {
-      try {
-    const decoded = jwtDecode<{ role?: string }>(tokenData);
-    const allowedRoles = ["Seller", "Admin"];
-    if (decoded.role && allowedRoles.includes(decoded.role)) {
-      return true;
+    try {
+      const decoded = jwtDecode<{ role?: string }>(tokenData);
+      const roles = Array.isArray(decoded.role) ? decoded.role : [decoded.role || ''];
+      aclService.setUserRoles(roles);
+      const allowedRoles = ["Seller", "Admin"];
+      if (decoded.role && allowedRoles.includes(decoded.role)) {
+        return true;
+      }
+      router.navigateByUrl('/login');
+      return false;
+    } catch (error) {
+      console.error('Erro ao decodificar o token:', error);
+      router.navigateByUrl('/login');
+      return false;
     }
-    router.navigateByUrl('/login');
-    return false;
-  } catch (error) {
-    console.error('Erro ao decodificar o token:', error);
-    router.navigateByUrl('/login');
-    return false;
-  }
 
-  }else{
+  } else {
     router.navigateByUrl('/login');
     return false;
   }

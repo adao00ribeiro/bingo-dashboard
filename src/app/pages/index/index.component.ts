@@ -11,12 +11,12 @@ import { ButtonMenuComponent } from '../../components/button-menu/button-menu.co
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/dialog-deposit.component';
 import { ISeller } from '../../interfaces/ISeller';
-import { SellerService } from '../../services/seller/seller.service';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { SellerMeResourceService } from '../../resource/seller/seller-me-resource.service';
+import { AclIfDirective } from '../../directive/acl-if.directive';
 @Component({
     selector: 'app-index',
-    imports: [MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
+    imports: [ AclIfDirective,MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
     templateUrl: './index.component.html',
     styleUrl: './index.component.scss'
 })
