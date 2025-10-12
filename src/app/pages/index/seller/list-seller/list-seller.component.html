@@ -1,1 +1,8 @@
-<p>list-seller works!</p>
+<app-table
+  title="Vendedores"
+  [columnMappings]="columnConfigs"
+  [data]="sellers()"
+  (onClick)="addSeller()"
+  (changeEdit)="editSeller($event)"
+  >
+</app-table>

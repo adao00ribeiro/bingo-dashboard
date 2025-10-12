@@ -37,11 +37,11 @@ export class SellerService {
   GetByEmail(email: string): Observable<ISeller> {
     return this.httpClient.get<ISeller>(`${this.url}/email/${email}`);
   }
-  UpdateById(id: number, round: ISeller): Observable<ISeller> {
-    return this.httpClient.put<ISeller>(`${this.url}/${id}`, round);
+  UpdateById(id: string, round: ISeller): Observable<ISeller> {
+    return this.httpClient.patch<ISeller>(`${this.url}/${id}`, round);
   }
 
-  DeleteById(id: number): Observable<void> {
+  DeleteById(id: string): Observable<void> {
     return this.httpClient.delete<void>(`${this.url}/${id}`);
   }
 

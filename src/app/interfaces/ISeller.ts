@@ -1,5 +1,6 @@
 import { IPunter } from "./IPunter";
 import { IRoom } from "./IRoom";
+import { ISellerSettings } from "./ISellerSettings";
 
 export interface ISeller {
   id: string,
@@ -8,6 +9,7 @@ export interface ISeller {
   cpf: string;
   dateBirth: Date;
   commission: number;
+  settings : ISellerSettings
   punters?: IPunter[];
   ownerRooms?: IRoom[];
 }

@@ -15,6 +15,7 @@ import { CustomizeColorsComponent } from './pages/index/customize-colors/customi
 import { ListPunterComponent } from './pages/index/punter/list-punter/list-punter.component';
 import { ReportRoundsComponent } from './pages/index/report-rounds/report-rounds.component';
 import { ListSellerComponent } from './pages/index/seller/list-seller/list-seller.component';
+import { EditSellerComponent } from './pages/index/seller/edit-seller/edit-seller.component';
 
 
 export const routes: Routes = [
@@ -43,6 +44,10 @@ export const routes: Routes = [
       {
         path: 'sellers',
         component: ListSellerComponent,
+      },
+        {
+        path: 'seller/:id',
+        component: EditSellerComponent,
       },
       {
         path: 'rooms',
