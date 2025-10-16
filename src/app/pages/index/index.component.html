@@ -1,4 +1,6 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+
+  <!-- Toolbar -->
   <mat-toolbar class="example-toolbar bg-primary">
     <div class="toolbar-left">
       <button mat-icon-button (click)="toggleSidenav()">
@@ -6,20 +8,29 @@
       </button>
       <h1 class="example-app-name text">Dashboard</h1>
     </div>
+
     <div class="toolbar-right">
-      <mat-menu class="mat-menu-item" #belowMenuDeposit="matMenu" yPosition="below">
+      <!-- Depositar / Carteira -->
+      <mat-menu #belowMenuDeposit="matMenu" yPosition="below">
         <button mat-menu-item (click)="deposit()">
           <mat-icon>payments</mat-icon>
-          Depositar</button>
+          Depositar
+        </button>
         <button mat-menu-item (click)="wallet()">
           <mat-icon>wallet</mat-icon>
-          Carteira</button>
+          Carteira
+        </button>
       </mat-menu>
 
-      <button class="btn-user" [matMenuTriggerFor]="belowMenu">
+      <button mat-icon-button [matMenuTriggerFor]="belowMenuDeposit">
+        <mat-icon>account_balance_wallet</mat-icon>
+      </button>
+
+      <!-- Usuário -->
+      <button class="btn-user" mat-icon-button [matMenuTriggerFor]="belowMenu">
         <mat-icon>person</mat-icon>
       </button>
-      <mat-menu class="mat-menu-item" #belowMenu="matMenu" yPosition="below">
+      <mat-menu #belowMenu="matMenu" yPosition="below">
         <button mat-menu-item (click)="myAccount()">
           <mat-icon>person</mat-icon>
           Minha Conta
@@ -28,17 +39,44 @@
           <mat-icon>logout</mat-icon>
           Sair
         </button>
-
-
       </mat-menu>
     </div>
   </mat-toolbar>
+
+  <!-- Sidenav e conteúdo principal -->
   <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+    <!-- Menu lateral -->
     <mat-sidenav class="bg-primary" [opened]="isSidenavOpen" #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
       <mat-nav-list>
+
+        <!-- Dashboard -->
         <app-button-menu descricao="Dashboard" (onClick)="handleClick('/')">
           <mat-icon>list_alt</mat-icon>
         </app-button-menu>
+
+        <!-- Raspadinha (Accordion) -->
+        <mat-accordion class="menu-accordion" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+             <mat-icon>confirmation_number</mat-icon>
+                Raspadinhas</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <mat-nav-list>
+              <app-button-menu descricao="Jogos" (onClick)="handleClick('/scratch-games')">
+
+              </app-button-menu>
+              <app-button-menu descricao="Tickets" (onClick)="handleClick('/scratch-tickets')">
+
+              </app-button-menu>
+            </mat-nav-list>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- Outras seções -->
         <app-button-menu descricao="Salas" (onClick)="handleClick('/rooms')">
           <mat-icon>military_tech</mat-icon>
         </app-button-menu>
@@ -48,29 +86,28 @@
         <app-button-menu descricao="Apostadores" (onClick)="handleClick('/punters')">
           <mat-icon>person_outline</mat-icon>
         </app-button-menu>
-        <app-button-menu  *aclIf="'Admin'" descricao="Vendedores" (onClick)="handleClick('/sellers')">
+        <app-button-menu *aclIf="'Admin'" descricao="Vendedores" (onClick)="handleClick('/sellers')">
           <mat-icon>business_center</mat-icon>
         </app-button-menu>
-        <app-button-menu descricao="Relatorio Rodadas" (onClick)="handleClick('/report-rounds')">
+        <app-button-menu descricao="Relatório Rodadas" (onClick)="handleClick('/report-rounds')">
           <mat-icon>article</mat-icon>
         </app-button-menu>
-        @if(false){
-        <app-button-menu descricao="Relatorio Salas" (onClick)="handleClick('/rounds')">
-          <mat-icon>article</mat-icon>
-        </app-button-menu>
-         }
         <app-button-menu descricao="Caixa Apostador" (onClick)="handleClick('/recharges')">
-          <mat-icon>account_balance_wallet </mat-icon>
+          <mat-icon>account_balance_wallet</mat-icon>
         </app-button-menu>
         <app-button-menu descricao="Tema Client" (onClick)="handleClick('/customize-colors')">
           <mat-icon>palette</mat-icon>
         </app-button-menu>
+
       </mat-nav-list>
     </mat-sidenav>
+
+    <!-- Conteúdo principal -->
     <mat-sidenav-content class="routeoutlet">
       <div class="router-container bg-primary">
         <router-outlet></router-outlet>
       </div>
     </mat-sidenav-content>
+
   </mat-sidenav-container>
 </div>

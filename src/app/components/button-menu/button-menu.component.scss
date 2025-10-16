@@ -3,12 +3,17 @@
    width: 100%;
    display: flex;
    align-items: center;
-   gap: 0.5rem;
+   gap: 1rem;
    background-color: transparent;
    color: white;
-   &:hover{
-    color: blue;
-   }
+    padding: 1rem ;
 
+   &:hover{
+       background: var(--mat-expansion-header-hover-state-layer-color,
+ color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
+   }
+   span{
+        font-size: var(--mat-expansion-header-text-size, var(--mat-sys-title-medium-size));
+   }
   }
 
