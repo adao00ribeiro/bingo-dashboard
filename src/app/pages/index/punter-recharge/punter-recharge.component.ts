@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TableComponent } from '../../../components/table/table.component';
-import { RechargesResourceService } from '../../../resource/recharge/recharges-resource.service';
 import { IRecharge } from '../../../interfaces/IRecharge';
-import { ButtonMenuComponent } from '../../../components/button-menu/button-menu.component';
 import { StatusChipComponent } from '../../../components/status-chip/status-chip.component';
 import { ERechargeStatus } from '../../../enums/ERechargeStatus';
-import { UpdateRechargeByIdResourceService } from '../../../resource/recharge/update-recharge-by-id.service';
+import { RechargesResource } from '../../../resource/recharge/recharges.resource';
+import { RechargeService } from '../../../services/recharge/recharge.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-punter-recharge',
@@ -14,10 +14,11 @@ import { UpdateRechargeByIdResourceService } from '../../../resource/recharge/up
   styleUrl: './punter-recharge.component.scss'
 })
 export class PunterRechargeComponent {
-  protected readonly rechargeResourceService = inject(RechargesResourceService);
-  protected readonly updateRechargeByIdResourceService = inject(UpdateRechargeByIdResourceService);
+  protected readonly rechargeResource = inject(RechargesResource);
+  protected readonly rechargeService = inject(RechargeService);
+  readonly snackBar = inject(MatSnackBar);
 
-  recharges = computed(() => this.rechargeResourceService.resource.value()?.items || [] );
+  recharges = computed(() => this.rechargeResource.resource.value() || undefined );
   rechargeType = ERechargeStatus.COMPLETED
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid" },
@@ -28,12 +29,36 @@ export class PunterRechargeComponent {
   ];
 
   constructor(){
-    effect(()=>{
-      this.updateRechargeByIdResourceService.resource.value();
 
-    })
+  }
+   refresh(page: number, size: number){
+     this.rechargeResource.reload({page:page,size:size});
+  }
+    ngOnInit(): void {
+      /*
+      this.rechargeService.GetById().subscribe({
+      next: (data) => {
+
+      },
+      error: (err) => {
+        this.snackBar.open(err.error.detail, 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: 'error-snackbar',
+        });
+      },
+      complete: () => {
+        this.snackBar.open("Sala criada com Sucesso", 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: ['sucess-snackbar'],
+        });
+      }
+    });*/
   }
   handleButtonClick(recharge: IRecharge) {
-     this.updateRechargeByIdResourceService.reload(recharge)
+
   }
 }

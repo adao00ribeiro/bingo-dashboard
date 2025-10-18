@@ -3,6 +3,7 @@
   [columnMappings]="columnConfigs"
   [data]="sellers()"
   (onClick)="addSeller()"
+  (refreshChange)="refresh($event.page, $event.size)"
   (changeEdit)="editSeller($event)"
   >
 </app-table>

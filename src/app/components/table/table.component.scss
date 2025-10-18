@@ -20,6 +20,11 @@
       color: var(--text-color);
       padding: 0.5rem;
     }
+    .container-button{
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
   }
 .section {
   display: flex;

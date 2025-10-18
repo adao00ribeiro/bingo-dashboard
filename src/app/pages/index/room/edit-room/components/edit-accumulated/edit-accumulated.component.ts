@@ -11,9 +11,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AccumulatedByRoomIdResourceService } from '../../../../../../resource/accumulated/accumulated-by-room-id-resource.service';
-import { AccumulatedUpdateService } from '../../../../../../services/accumulated/accumulated-update.service';
 import { IAccumulated } from '../../../../../../interfaces/IAccumulated';
+import { AccumulatedService } from '../../../../../../services/accumulated/accumulated.service';
 @Component({
   selector: 'app-edit-accumulated',
   imports: [
@@ -44,8 +43,7 @@ export class EditAccumulatedComponent {
 
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
-  private readonly accumulatedByRoomIdResourceService = inject(AccumulatedByRoomIdResourceService);
-  private readonly accumulatedUpdateService = inject(AccumulatedUpdateService);
+  private readonly acumulatedService = inject(AccumulatedService);
 
 
   constructor(private fb: FormBuilder) {
@@ -61,55 +59,60 @@ export class EditAccumulatedComponent {
       roomId: ["", [Validators.required]],
 
     });
-    effect(() => {
-      const accumulated = this.accumulatedByRoomIdResourceService.resource.value();
-
-      if (accumulated) {
-        this.editForm.patchValue({
-          id:accumulated.id,
-          activated: accumulated.activated,
-          minimumValue: accumulated.minimumValue,
-          maximumValue: accumulated.maximumValue,
-          currentValue: accumulated.currentValue,
-          maximumNumberOfBalls: accumulated.maximumNumberOfBalls,
-          cumulativePercentage: accumulated.cumulativePercentage,
-          incrementBallCumulative: accumulated.incrementBallCumulative,
-          roomId: accumulated.roomId
-        });
-      }
-
-    });
   }
   ngOnInit(): void {
-    this.accumulatedByRoomIdResourceService.loadByRoomId(this.roomId());
+    this.acumulatedService.GetByRoomId(this.roomId()).subscribe({
+      next: (data) => {
+        if (data) {
+          this.editForm.patchValue({
+            id: data.id,
+            activated: data.activated,
+            minimumValue: data.minimumValue,
+            maximumValue: data.maximumValue,
+            currentValue: data.currentValue,
+            maximumNumberOfBalls: data.maximumNumberOfBalls,
+            cumulativePercentage: data.cumulativePercentage,
+            incrementBallCumulative: data.incrementBallCumulative,
+            roomId: data.roomId
+          });
+        }
+      },
+      error: (err) => {
 
-  }
-  onSubmit() {
-      if (this.editForm.invalid) return;
+      },
+      complete: () => {
 
-        const accumulated: IAccumulated = this.editForm.value;
-        this.accumulatedUpdateService.UpdateById(accumulated.id, accumulated).subscribe({
-          next: (data) => {
-            console.log(data);
-          },
-          error: (err) => {
-            this.snackBar.open(err.error.detail, 'Ok', {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-              panelClass: 'error-snackbar',
-            });
-          },
-          complete: () => {
-            this.snackBar.open("Acumulado Atualizado com Sucesso", 'Ok', {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-              panelClass: ['sucess-snackbar'],
-            });
-            this.router.navigate(['/rooms']);
-          }
-        });;
+
       }
+    });;
+  }
+
+  onSubmit() {
+    if (this.editForm.invalid) return;
+
+    const accumulated: IAccumulated = this.editForm.value;
+    this.acumulatedService.UpdateById(accumulated.id, accumulated).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => {
+        this.snackBar.open(err.error.detail, 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: 'error-snackbar',
+        });
+      },
+      complete: () => {
+        this.snackBar.open("Acumulado Atualizado com Sucesso", 'Ok', {
+          duration: 5000,
+          horizontalPosition: 'center',
+          verticalPosition: 'bottom',
+          panelClass: ['sucess-snackbar'],
+        });
+        this.router.navigate(['/rooms']);
+      }
+    });;
+  }
 
 }

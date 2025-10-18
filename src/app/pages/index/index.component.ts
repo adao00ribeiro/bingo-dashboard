@@ -12,8 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogDepositComponent } from '../../components/dialogs/dialog-deposit/dialog-deposit.component';
 import { ISeller } from '../../interfaces/ISeller';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { SellerMeResourceService } from '../../resource/seller/seller-me-resource.service';
 import { AclIfDirective } from '../../directive/acl-if.directive';
+import { SellerMeResource } from '../../resource/seller/seller-me.resource';
 @Component({
     selector: 'app-index',
     imports: [ AclIfDirective,MatExpansionModule ,MatButtonModule, MatMenuModule, ButtonMenuComponent, RouterOutlet, MatToolbarModule, MatButtonModule, MatIconModule, MatSidenavModule, MatListModule],
@@ -30,7 +30,7 @@ export class IndexComponent implements OnInit {
   private _mobileQueryListener: () => void;
   readonly panelOpenState = signal(false);
 
-   protected readonly SellerMeResourceService = inject(SellerMeResourceService);
+   protected readonly SellerMeResource = inject(SellerMeResource);
 
   seller: ISeller | null = null;
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -43,7 +43,7 @@ export class IndexComponent implements OnInit {
     })
   }
  ngOnInit(): void {
-    this.SellerMeResourceService.reload();
+    this.SellerMeResource.reload();
   }
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

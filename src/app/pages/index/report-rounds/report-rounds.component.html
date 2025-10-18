@@ -3,7 +3,7 @@
   <mat-form-field>
     <mat-label>Vendedor</mat-label>
     <mat-select name="seller" formControlName="sellersId">
-      @for (seller of sellerResourceService.resource.value(); track seller) {
+      @for (seller of sellerResourceService.resource.value()?.rows; track seller) {
       <mat-option [value]="seller.id">{{seller.email}}</mat-option>
       }
     </mat-select>
@@ -20,7 +20,7 @@
   <mat-checkbox class="example-margin" formControlName="enabled">
     Apenas Rodadas Finalizadas
   </mat-checkbox>
-  <app-table [columnMappings]="columnConfigs" [data]="dataSource()" [enabledBtn]="false"
+  <app-table [columnMappings]="columnConfigs" [data]="dataSource()"
     (changeEdit)="editRoom($event)">
   </app-table>
 

@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { TableComponent } from '../../../../components/table/table.component';
-import { SellersResourceService } from '../../../../resource/seller/sellers-resource.service';
 import { Router } from '@angular/router';
+import { SellersResource } from '../../../../resource/seller/sellers.resource';
 
 @Component({
   selector: 'app-list-seller',
@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
   styleUrl: './list-seller.component.scss'
 })
 export class ListSellerComponent {
-protected readonly puntersResourceService: SellersResourceService = inject(SellersResourceService);
+protected readonly sellersResource: SellersResource = inject(SellersResource);
   private router: Router = inject(Router);
 
-  sellers =  computed(() => this.puntersResourceService.resource.value() || []);
+  sellers =  computed(() => this.sellersResource.resource.value() || undefined);
 
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid"},
@@ -23,9 +23,11 @@ protected readonly puntersResourceService: SellersResourceService = inject(Selle
 
   ];
   ngOnInit(): void {
-    this.puntersResourceService.reload();
+     this.refresh(1,10);
   }
-
+ refresh(page: number, size: number){
+     this.sellersResource.reload({page:page,size:size});
+  }
   addSeller(){
   //  this.router.navigate(['/addrooms']);
   }

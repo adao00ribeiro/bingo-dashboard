@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
-import { RoomByIdResourceService } from '../../../../../../resource/room/room-by-id-resource.service';
+import { RoomService } from '../../../../../../services/room/room.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-geral-room',
@@ -29,22 +30,26 @@ export class GeralRoomComponent {
   id = input('');
   editForm: FormGroup;
   onClickCancel = output<void>();
-  readonly roomByIdResource: RoomByIdResourceService = inject(RoomByIdResourceService)
+  readonly roomService: RoomService = inject(RoomService)
+  readonly snackBar = inject(MatSnackBar);
 
   constructor(private fb: FormBuilder) {
     this.editForm = this.fb.group({
       name: ['', [Validators.required]],
     });
-
-    effect(() => {
-      let room = this.roomByIdResource.resource.value()
-      this.editForm.patchValue({
-        name: room?.name
-      });
-    })
   }
   ngOnInit(): void {
-    this.roomByIdResource.loadRoundById(this.id());
+      this.roomService.GetById(this.id()).subscribe({
+      next: (data) => {
+        this.editForm.patchValue({
+        name: data?.name
+      });
+      },
+      error: (err) => {
+      },
+      complete: () => {
+      }
+    });
   }
   onSubmit() { }
 

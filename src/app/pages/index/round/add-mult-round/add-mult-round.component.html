@@ -2,7 +2,7 @@
       <mat-form-field>
         <mat-label>Sala</mat-label>
         <mat-select name="food" formControlName="roomId">
-          @for (room of roomService.rooms(); track room) {
+          @for (room of rooms(); track room) {
             <mat-option [value]="room.id">{{room.name}}</mat-option>
           }
         </mat-select>
@@ -52,7 +52,7 @@
     <h2>Prêmios</h2>
     <app-add-prizes [maxBalls]="roundForm.value.maxBalls" (prizesChange)="onPrizesChange($event)"></app-add-prizes>
     <footer class="footer">
-      <button class="btn-second">CANCELAR</button>
+        <button class="btn-second" (click)="toGoBack()">Cancelar</button>
       <button class="btn-primary" type="submit">Adicionar</button>
     </footer>
   </form>

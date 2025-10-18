@@ -1,7 +1,9 @@
 <app-table
   title="Salas"
   [columnMappings]="columnConfigs"
-  [data]="roomService.rooms()"
+  [data]="rooms()"
   (onClick)="addSala()"
+  (refreshChange)="refresh($event.page, $event.size)"
   (changeEdit)="editRoom($event)">
+
 </app-table>

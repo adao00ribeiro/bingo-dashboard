@@ -3,7 +3,8 @@
 <app-table
   title="Rodadas"
   [columnMappings]="columnConfigs"
-  [data]="roundService.rounds()"
+  [data]="rounds()"
+  (refreshChange)="refresh($event.page, $event.size)"
   (onClick)="addRodada()"
   >
 </app-table>

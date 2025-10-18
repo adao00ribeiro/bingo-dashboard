@@ -9,11 +9,10 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { BotConfigResourceService } from '../../../../../../resource/bot-config/bot-config-resource.service';
 import { IBotConfig } from '../../../../../../interfaces/IBotConfig';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { BotConfigUpdateService } from '../../../../../../services/bot-config/bot-config-update.service';
+import { BotConfigService } from '../../../../../../services/bot-config/bot-config.service';
 
 @Component({
   selector: 'app-edit-config-bots',
@@ -44,8 +43,7 @@ export class EditConfigBotsComponent implements OnInit {
   disabled = false;
 
   private readonly fb = inject(FormBuilder);
-  private readonly botConfigResourceService = inject(BotConfigResourceService);
-  private readonly botConfigUpdateService = inject(BotConfigUpdateService);
+  private readonly botConfigService = inject(BotConfigService);
   private readonly snackBar = inject(MatSnackBar);
   private readonly router = inject(Router);
 
@@ -55,31 +53,31 @@ export class EditConfigBotsComponent implements OnInit {
       enabled: [false, Validators.required],
       roomId: ['']
     });
-
-    effect(() => {
-      const config = this.botConfigResourceService.resource.value();
-
-      if (config) {
-        this.editForm.patchValue({
-          id: config.id,
-          enabled: config.enabled,
-          roomId: config.roomId
-        });
-      }
-
-    });
-
   }
 
   ngOnInit(): void {
-    this.botConfigResourceService.loadBotConfigByRoomId(this.roomId());
+   this.botConfigService.GetByRoomId(this.roomId()).subscribe({
+      next: (data) => {
+            if (data) {
+        this.editForm.patchValue({
+          id: data.id,
+          enabled: data.enabled,
+          roomId: data.roomId
+        });
+      }
+      },
+      error: (err) => {
+      },
+      complete: () => {
+      }
+    });
   }
 
   async onSubmit(): Promise<void> {
     if (this.editForm.invalid) return;
 
     const config: IBotConfig = this.editForm.value;
-    this.botConfigUpdateService.UpdateById(config.id, config).subscribe({
+    this.botConfigService.UpdateById(config.id, config).subscribe({
       next: (data) => {
         console.log(data);
       },
@@ -100,6 +98,6 @@ export class EditConfigBotsComponent implements OnInit {
         });
         this.router.navigate(['/rooms']);
       }
-    });;
+    });
   }
 }

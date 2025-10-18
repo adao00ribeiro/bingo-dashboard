@@ -1,0 +1,7 @@
+<app-table
+  title="Raspadinhas"
+  [columnMappings]="columnConfigs"
+  [data]="scratchGames()"
+  (onClick)="addScratch()"
+  (changeEdit)="editScratch($event)">
+</app-table>

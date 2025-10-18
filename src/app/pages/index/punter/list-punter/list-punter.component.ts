@@ -1,8 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { TableComponent } from '../../../../components/table/table.component';
-import { PunterMeResourceService } from '../../../../resource/punter/punter-me-resource.service';
 import { Router } from '@angular/router';
-import { PuntersResourceService } from '../../../../resource/punter/punters-resource.service';
+import { PuntersResource } from '../../../../resource/punter/punters.resource';
 
 @Component({
   selector: 'app-list-punter',
@@ -11,10 +10,10 @@ import { PuntersResourceService } from '../../../../resource/punter/punters-reso
   styleUrl: './list-punter.component.scss'
 })
 export class ListPunterComponent {
-  protected readonly puntersResourceService: PuntersResourceService = inject(PuntersResourceService);
+  protected readonly puntersResource: PuntersResource = inject(PuntersResource);
   private router: Router = inject(Router);
 
-  punters =  computed(() => this.puntersResourceService.resource.value() || []);
+  punters =  computed(() => this.puntersResource.resource.value() || undefined);
 
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid"},
@@ -26,11 +25,13 @@ export class ListPunterComponent {
 
   ];
   ngOnInit(): void {
-    this.puntersResourceService.reload();
+    this.refresh(1,10);
   }
-
+  refresh(page: number, size: number){
+     this.puntersResource.reload({page:page,size:size});
+  }
   addSala(){
-  //  this.router.navigate(['/addrooms']);
+    this.router.navigate(['/addrooms']);
   }
   editRoom(room : any){
    // this.router.navigate(['/editroom', room.id]);
