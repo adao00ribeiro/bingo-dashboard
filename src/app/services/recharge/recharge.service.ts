@@ -24,7 +24,7 @@ export class RechargeService {
     return this.httpClient.get<IRecharge>(`${this.url}/id/${id}`);
   }
 
-  UpdateById(id: number, recharge: IRecharge): Observable<IRecharge> {
+  UpdateById(id: string, recharge: IRecharge): Observable<IRecharge> {
     return this.httpClient.put<IRecharge>(`${this.url}/${id}`, recharge);
   }
   PatchById( recharge: IRecharge): Observable<boolean> {

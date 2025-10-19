@@ -18,29 +18,32 @@ export class PunterRechargeComponent {
   protected readonly rechargeService = inject(RechargeService);
   readonly snackBar = inject(MatSnackBar);
 
-  recharges = computed(() => this.rechargeResource.resource.value() || undefined );
+  recharges = computed(() => this.rechargeResource.resource.value() || undefined);
   rechargeType = ERechargeStatus.COMPLETED
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid" },
     { key: 'punter.name', displayName: 'Nome' },
-    { key: 'value', displayName: 'Valor', pipe:"currency"},
-    { key: 'createdAt', displayName: 'Data criação' , pipe: "dateTime" },
-    { key: 'status', displayName: 'Status'}, // Adiciona a coluna "Status"
+    { key: 'value', displayName: 'Valor', pipe: "currency" },
+    { key: 'createdAt', displayName: 'Data criação', pipe: "dateTime" },
+    { key: 'status', displayName: 'Status' }, // Adiciona a coluna "Status"
   ];
 
-  constructor(){
+  constructor() {
 
   }
-   refresh(page: number, size: number){
-     this.rechargeResource.reload({page:page,size:size});
+  refresh(page: number, size: number) {
+    this.rechargeResource.reload({ page: page, size: size });
   }
-    ngOnInit(): void {
-      /*
-      this.rechargeService.GetById().subscribe({
+  ngOnInit(): void {
+
+  }
+  handleButtonClick(recharge: IRecharge) {
+
+    this.rechargeService.PatchById( recharge).subscribe({
       next: (data) => {
-
       },
       error: (err) => {
+        console.log(err)
         this.snackBar.open(err.error.detail, 'Ok', {
           duration: 5000,
           horizontalPosition: 'center',
@@ -49,16 +52,13 @@ export class PunterRechargeComponent {
         });
       },
       complete: () => {
-        this.snackBar.open("Sala criada com Sucesso", 'Ok', {
+        this.snackBar.open("Concluido com Sucesso", 'Ok', {
           duration: 5000,
           horizontalPosition: 'center',
           verticalPosition: 'bottom',
           panelClass: ['sucess-snackbar'],
         });
       }
-    });*/
-  }
-  handleButtonClick(recharge: IRecharge) {
-
+    });
   }
 }

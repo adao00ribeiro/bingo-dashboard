@@ -1,7 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ICardWinner } from '../interfaces/ICardWinner';
+import { ICardWinner } from '../../interfaces/ICardWinner';
 import { Observable } from 'rxjs';
 
 @Injectable({

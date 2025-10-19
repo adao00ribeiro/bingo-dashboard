@@ -18,6 +18,6 @@ export class PunterService {
      return this.httpClient.get<IPaged<IPunter>>(this.url + `?page=${page}&size=${size}`)
    }
  GetMe(): Observable<IPunter> {
-    return this.httpClient.get<IPunter>(this.url + "/punter/me")
+    return this.httpClient.get<IPunter>(this.url + "/me")
  }
 }
