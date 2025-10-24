@@ -43,7 +43,7 @@ export class AddMultRoundComponent {
   }
 
   ngOnInit(): void {
-
+    this.roomResource.reload({page:1 , size: 5000})
   }
   handleAddRoundClick() {
     const prizes =   this.roundForm.get('prizes') as FormArray

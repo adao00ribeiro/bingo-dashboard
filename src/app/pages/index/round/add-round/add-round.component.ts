@@ -41,7 +41,7 @@ export class AddRoundComponent {
     });
   }
   ngOnInit(): void {
-
+    this.roomResource.reload({page:1 , size: 5000})
   }
 
   maxBalls: maxBalls[] = [
