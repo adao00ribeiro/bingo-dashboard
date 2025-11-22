@@ -1,8 +1,14 @@
+form{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1rem;
+}
+
 mat-list-item {
   height: auto !important;
   min-height: 80px;
   padding: 8px 0;
-
   ::ng-deep .mat-list-item-content {
     height: auto !important;
     padding: 0;

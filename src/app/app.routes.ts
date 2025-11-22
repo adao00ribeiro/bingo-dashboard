@@ -16,6 +16,8 @@ import { ListPunterComponent } from './pages/index/punter/list-punter/list-punte
 import { ReportRoundsComponent } from './pages/index/report-rounds/report-rounds.component';
 import { ListSellerComponent } from './pages/index/seller/list-seller/list-seller.component';
 import { EditSellerComponent } from './pages/index/seller/edit-seller/edit-seller.component';
+import { IndexScratchSellerGameComponent } from './pages/index/scratch-seller-games/index-scratch-seller-game/index-scratch-seller-game.component';
+import { NewScratchSellerGameComponent } from './pages/index/scratch-seller-games/new-scratch-seller-game/new-scratch-seller-game.component';
 
 
 export const routes: Routes = [
@@ -81,6 +83,15 @@ export const routes: Routes = [
         path: 'customize-colors',
         component: CustomizeColorsComponent,
       },
+        {
+        path: 'scratch-games',
+        component: IndexScratchSellerGameComponent,
+      },
+      {
+        path: 'add-scratch-game',
+        component: NewScratchSellerGameComponent,
+      },
+
     ],
   },
   {

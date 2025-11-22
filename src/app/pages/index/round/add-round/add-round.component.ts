@@ -1,17 +1,16 @@
-import { Component,  inject } from '@angular/core';
+import { Component,  computed,  inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { IRoom } from '../../../../interfaces/IRoom';
 import { IRoundRequest } from '../../../../interfaces/IRoundRequest';
 import { RoundService } from '../../../../services/round/round.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RoomService } from '../../../../services/room.service';
 import { Router } from '@angular/router';
 
 import { AddPrizesComponent } from '../../../../components/add-prizes/add-prizes.component';
 import { IPrize } from '../../../../interfaces/IPrize';
+import { RoomsResource } from '../../../../resource/room/rooms.resource';
 
 export interface maxBalls {
   value: number,
@@ -25,11 +24,11 @@ export interface maxBalls {
 })
 export class AddRoundComponent {
   roundForm: FormGroup;
-
   private readonly roundService = inject(RoundService);
-  protected readonly roomService = inject(RoomService);
-   private router: Router = inject(Router);
+  protected readonly roomResource = inject(RoomsResource);
+  private router: Router = inject(Router);
   readonly snackBar = inject(MatSnackBar);
+  rooms = computed(() => this.roomResource.resource.value()?.rows|| undefined);
 
   constructor(private fb: FormBuilder) {
     this.roundForm = this.fb.group({
@@ -42,14 +41,8 @@ export class AddRoundComponent {
     });
   }
   ngOnInit(): void {
-    this.roomService.loadRooms();
+    this.roomResource.reload({page:1 , size: 5000})
   }
-
-  rooms: IRoom[] = [
-    { id: '123', name: 'Steak', ownerId: "" },
-    { id: '456', name: 'Pizza', ownerId: "" },
-    { id: '789', name: 'Tacos', ownerId: "" },
-  ];
 
   maxBalls: maxBalls[] = [
     { value: 90, view: '90' },
@@ -115,7 +108,9 @@ export class AddRoundComponent {
 
     return config[maxBalls] ;
   }
-
+  toGoBack(){
+    this.router.navigate(['/rounds']);
+  }
   onPrizesChange(updatedPrizes: FormArray) {
     this.roundForm.setControl('prizes', updatedPrizes);
   }

@@ -1,13 +1,13 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,  ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { IRoomRequest } from '../../../../interfaces/IRoomRequest';
-import { RoomService } from '../../../../services/room.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { SellerMeResourceService } from '../../../../resource/seller/seller-me-resource.service';
 import { ISeller } from '../../../../interfaces/ISeller';
+import { RoomService } from '../../../../services/room/room.service';
+import { SellerMeResource } from '../../../../resource/seller/seller-me.resource';
 
 @Component({
   selector: 'app-add-room',
@@ -20,7 +20,7 @@ export class AddRoomComponent {
   private router: Router = inject(Router);
   private readonly roomService = inject(RoomService);
   readonly snackBar = inject(MatSnackBar);
-  protected readonly sellerMeResourceService = inject(SellerMeResourceService);
+  protected readonly sellerMeResource = inject(SellerMeResource);
 
   user = signal<ISeller | undefined>(undefined);
 
@@ -31,7 +31,7 @@ export class AddRoomComponent {
 
 
     effect(() => {
-      this.user.set(this.sellerMeResourceService.resource.value());
+      this.user.set(this.sellerMeResource.resource.value());
       console.log(this.user())
     })
 

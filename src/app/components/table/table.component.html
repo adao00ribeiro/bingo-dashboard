@@ -1,11 +1,15 @@
 
 <div class="header">
     <h2>{{title}}</h2>
-    @if(enabledBtn){
+
+    <div class="container-button">
+  <button class="btn-add" (click)="handleEmit()">Atualizar</button>
+     @if(enabledBtn){
     <button class="btn-add" (click)="handleClick()">Add</button>
     }
-</div>
+    </div>
 
+</div>
 <mat-form-field class="input-filter">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
@@ -13,27 +17,26 @@
 <section class="section" tabindex="0">
   <table class="mat-mdc-table" mat-table matSort [dataSource]="dataSource">
     @for (columns of columnMappings; track $index) {
-      <ng-container [matColumnDef]="columns.key">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns.displayName }} </th>
-        <td mat-cell *matCellDef="let element">
+    <ng-container [matColumnDef]="columns.key"  [sticky]="($index === 0)">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columns.displayName }} </th>
+      <td mat-cell *matCellDef="let element">
 
-          @if(columnTemplates[columns.key]){
-            <ng-container *ngTemplateOutlet="columnTemplates[columns.key]; context: { $implicit: element }">
-          </ng-container>
-          }@else{
-          @if(columns.pipe){
-            {{ getValue(element, columns.key) | dynamic: columns.pipe }}
-          }@else {
-            {{ getValue(element, columns.key) }}
-          }
+        @if(columnTemplates[columns.key]){
+        <ng-container *ngTemplateOutlet="columnTemplates[columns.key]; context: { $implicit: element }">
+        </ng-container>
+        }@else{
+        @if(columns.pipe){
+        {{ getValue(element, columns.key) | dynamic: columns.pipe }}
+        }@else {
+        {{ getValue(element, columns.key) }}
         }
-        </td>
-      </ng-container>
+        }
+      </td>
+    </ng-container>
     }
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="handleDetail(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="handleDetail(row)"></tr>
   </table>
 </section>
-<mat-paginator aria-label="Select page of periodic elements" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+<mat-paginator aria-label="Select page of periodic elements" [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25, 50]" (page)="onPageChange($event)" showFirstLastButtons>
 </mat-paginator>
-

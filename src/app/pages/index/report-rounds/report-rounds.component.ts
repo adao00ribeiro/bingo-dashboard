@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, output, signal } from '@angular/core';
 import { TableComponent } from '../../../components/table/table.component';
-import { RoomService } from '../../../services/room.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder,  FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,10 +20,12 @@ import * as _moment from 'moment';
 import { default as _rollupMoment } from 'moment';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { debounceTime, startWith, switchMap } from 'rxjs';
-import { SellersResourceService } from '../../../resource/seller/sellers-resource.service';
 import { MatSelectModule } from '@angular/material/select';
 import { ReportRoundsService } from '../../../services/reports/report.service';
 import { IRoundReportItem } from '../../../interfaces/reports/IRoundReportItem';
+import { IPaged } from '../../../interfaces/IPaged';
+import { IRoundReportStats } from '../../../interfaces/reports/IRoundReportStats';
+import { SellersResource } from '../../../resource/seller/sellers.resource';
 
 
 const moment = _rollupMoment || _moment;
@@ -73,10 +74,10 @@ export class ReportRoundsComponent implements OnInit {
   onClickCancel = output<void>();
   checked = false;
   disabled = false;
-  dataSource = signal<IRoundReportItem[]>([])
+  dataSource = signal<IPaged<IRoundReportItem, IRoundReportStats> | undefined>(undefined)
 
   private router: Router = inject(Router);
-  protected sellerResourceService: SellersResourceService = inject(SellersResourceService);
+  protected sellerResourceService: SellersResource = inject(SellersResource);
   protected reportRoundsService : ReportRoundsService = inject(ReportRoundsService);
 
   columnConfigs = [
@@ -129,7 +130,7 @@ export class ReportRoundsComponent implements OnInit {
       return [];
     })
   ).subscribe(data => {
-    this.dataSource.set(data.rows);
+    this.dataSource.set(data);
   });
 
   }

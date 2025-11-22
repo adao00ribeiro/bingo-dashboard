@@ -3,6 +3,8 @@
   [columnMappings]="columnConfigs"
   [data]="punters()"
   (onClick)="addSala()"
+  (enabledBtn)="true"
+  (refreshChange)="refresh($event.page, $event.size)"
   (changeEdit)="editRoom($event)"
   >
 </app-table>

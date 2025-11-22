@@ -59,7 +59,8 @@ export class EditSellerComponent implements OnInit {
           }),
           fromAddress: ['', [Validators.required, Validators.email]],
           fromName: ['', Validators.required]
-        })
+        }),
+        enabledScratch:   ['', Validators.required],
       })
     });
 

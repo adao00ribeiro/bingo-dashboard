@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ISeller } from '../../interfaces/ISeller';
 import { Observable } from 'rxjs';
 import { ISellerRequest } from '../../interfaces/ISelerRequest';
+import { IPaged } from '../../interfaces/IPaged';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +12,14 @@ import { ISellerRequest } from '../../interfaces/ISelerRequest';
 export class SellerService {
   private url = `${environment.api}/api/v1/seller`;
   private httpClient: HttpClient = inject(HttpClient);
-  private sellersSignal = signal<ISeller[]>([]);
-  public readonly sellers = this.sellersSignal.asReadonly();
 
-  loadSellers(): void {
-    this.GetAll().subscribe({
-      next: (sellers) => this.sellersSignal.set(sellers),
-      error: (error) => console.error('Erro ao carregar rounds:', error),
-    });
-  }
+  GetAll(page: number, size: number, enabledScratch: boolean): Observable<IPaged<ISeller>> {
+    let url = `${this.url}?page=${page}&size=${size}`;
 
-  GetAll(): Observable<ISeller[]> {
-    return this.httpClient.get<ISeller[]>(this.url);
+    if (enabledScratch !== undefined) {
+      url += `&enabledScratch=${enabledScratch}`;
+    }
+    return this.httpClient.get<IPaged<ISeller>>(url)
   }
 
   Create(round: ISellerRequest): Observable<ISeller> {

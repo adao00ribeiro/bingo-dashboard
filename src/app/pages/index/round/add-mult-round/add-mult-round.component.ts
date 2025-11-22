@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { RoomService } from '../../../../services/room.service';
 import { Router } from '@angular/router';
 import { AddPrizesComponent } from "../../../../components/add-prizes/add-prizes.component";
 import { maxBalls } from '../add-round/add-round.component';
@@ -11,6 +10,7 @@ import { IRoundBulk } from '../../../../interfaces/IRoundBulk';
 import { IPrize } from '../../../../interfaces/IPrize';
 import { RoundService } from '../../../../services/round/round.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { RoomsResource } from '../../../../resource/room/rooms.resource';
 
 @Component({
     selector: 'app-add-mult-round',
@@ -21,9 +21,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddMultRoundComponent {
   roundForm: FormGroup;
   private readonly roundService = inject(RoundService);
-  protected readonly roomService = inject(RoomService);
+   protected readonly roomResource = inject(RoomsResource);
+
   private router: Router = inject(Router);
  readonly snackBar = inject(MatSnackBar);
+
+  rooms = computed(() => this.roomResource.resource.value()?.rows|| undefined);
   constructor(private fb: FormBuilder) {
        this.roundForm = this.fb.group({
       roomId: ['', [Validators.required]],
@@ -40,7 +43,7 @@ export class AddMultRoundComponent {
   }
 
   ngOnInit(): void {
-    this.roomService.loadRooms();
+    this.roomResource.reload({page:1 , size: 5000})
   }
   handleAddRoundClick() {
     const prizes =   this.roundForm.get('prizes') as FormArray
@@ -114,6 +117,9 @@ export class AddMultRoundComponent {
     };
 
     return config[maxBalls];
+  }
+  toGoBack(){
+    this.router.navigate(['/rounds']);
   }
   onPrizesChange(updatedPrizes: FormArray) {
     this.roundForm.setControl('prizes', updatedPrizes);
