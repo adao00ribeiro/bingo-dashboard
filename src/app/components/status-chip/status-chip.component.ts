@@ -4,7 +4,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
-import { ERechargeStatus } from '../../enums/ERechargeStatus';
+import { EPaymentStatus } from '../../enums/EPaymentStatus';
+
 
 @Component({
   selector: 'app-status-chip',
@@ -19,47 +20,47 @@ import { ERechargeStatus } from '../../enums/ERechargeStatus';
 })
 export class StatusChipComponent {
   @Input() data: any;
-  @Input() currentStatus!: ERechargeStatus;
+  @Input() currentStatus!: EPaymentStatus;
   @Input() disabled: boolean = false;
-  @Output() statusChange = new EventEmitter<ERechargeStatus>();
+  @Output() statusChange = new EventEmitter<EPaymentStatus>();
 
-  statusOptions: ERechargeStatus[] = Object.values(ERechargeStatus);
+  statusOptions: EPaymentStatus[] = Object.values(EPaymentStatus);
 
 
   get isDisabled(): boolean {
-    return this.disabled || this.currentStatus === ERechargeStatus.COMPLETED;
+    return this.disabled || this.currentStatus === EPaymentStatus.SUCCESS;
   }
-  getStatusClass(status: ERechargeStatus): string {
+  getStatusClass(status: EPaymentStatus): string {
     switch (status) {
-      case ERechargeStatus.PENDING:
+      case EPaymentStatus.PENDING:
         return 'status-pending';
-      case ERechargeStatus.COMPLETED:
+      case EPaymentStatus.SUCCESS:
         return 'status-completed';
-      case ERechargeStatus.FAILED:
+      case EPaymentStatus.FAILED:
         return 'status-failed';
-      case ERechargeStatus.CANCELLED:
+      case EPaymentStatus.REJECTED:
         return 'status-cancelled';
       default:
         return '';
     }
   }
 
-  getStatusLabel(status: ERechargeStatus): string {
+  getStatusLabel(status: EPaymentStatus): string {
     switch (status) {
-      case ERechargeStatus.PENDING:
+      case EPaymentStatus.PENDING:
         return 'Pendente';
-      case ERechargeStatus.COMPLETED:
-        return 'Concluído';
-      case ERechargeStatus.FAILED:
-        return 'Falhou';
-      case ERechargeStatus.CANCELLED:
-        return 'Cancelado';
+      case EPaymentStatus.SUCCESS:
+        return 'Sucesso';
+      case EPaymentStatus.FAILED:
+        return 'Falha';
+      case EPaymentStatus.REJECTED:
+        return 'Rejeitado';
       default:
         return status;
     }
   }
 
-  onStatusChange(status: ERechargeStatus): void {
+  onStatusChange(status: EPaymentStatus): void {
     if (this.disabled) return;
     this.currentStatus = status;
     this.statusChange.emit(status);

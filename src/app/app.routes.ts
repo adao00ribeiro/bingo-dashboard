@@ -9,7 +9,6 @@ import { AddRoomComponent } from './pages/index/room/add-room/add-room.component
 import { ListRoundComponent } from './pages/index/round/list-round/list-round.component';
 import { ListRoomComponent } from './pages/index/room/list-room/list-room.component';
 import { RoundTabsComponent } from './pages/index/round/round-tabs/round-tabs.component';
-import { PunterRechargeComponent } from './pages/index/punter-recharge/punter-recharge.component';
 import { EditRoomComponent } from './pages/index/room/edit-room/edit-room.component';
 import { CustomizeColorsComponent } from './pages/index/customize-colors/customize-colors.component';
 import { ListPunterComponent } from './pages/index/punter/list-punter/list-punter.component';
@@ -18,6 +17,7 @@ import { ListSellerComponent } from './pages/index/seller/list-seller/list-selle
 import { EditSellerComponent } from './pages/index/seller/edit-seller/edit-seller.component';
 import { IndexScratchSellerGameComponent } from './pages/index/scratch-seller-games/index-scratch-seller-game/index-scratch-seller-game.component';
 import { NewScratchSellerGameComponent } from './pages/index/scratch-seller-games/new-scratch-seller-game/new-scratch-seller-game.component';
+import { IndexTransactionComponent } from './pages/index/transactions/index-transaction.component';
 
 
 export const routes: Routes = [
@@ -76,8 +76,8 @@ export const routes: Routes = [
         component: MyAccountComponent,
       },
       {
-        path: 'recharges',
-        component: PunterRechargeComponent,
+        path: 'transactions',
+        component: IndexTransactionComponent,
       },
       {
         path: 'customize-colors',

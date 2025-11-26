@@ -1,0 +1,12 @@
+
+  <app-table
+  [columnMappings]="columnConfigs"
+  [data]="recharges()"
+  (refreshChange)="refresh($event.page, $event.size)"
+  >
+  <ng-template column="status" let-row let-element>
+      <app-status-chip [currentStatus]="element.status" (statusChange)="handleButtonClick(element)">>
+    </app-status-chip>
+  </ng-template>
+  </app-table>
+

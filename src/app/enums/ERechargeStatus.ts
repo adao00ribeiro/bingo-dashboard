@@ -1,6 +1,0 @@
-export enum ERechargeStatus{
-  PENDING = 'PENDING',
-  COMPLETED = 'COMPLETED',
-  FAILED = 'FAILED',
-  CANCELLED = 'CANCELLED'
-}

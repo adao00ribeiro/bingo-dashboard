@@ -1,11 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
-import { TableComponent } from '../../../components/table/table.component';
-import { IRecharge } from '../../../interfaces/IRecharge';
-import { StatusChipComponent } from '../../../components/status-chip/status-chip.component';
-import { ERechargeStatus } from '../../../enums/ERechargeStatus';
-import { RechargesResource } from '../../../resource/recharge/recharges.resource';
-import { RechargeService } from '../../../services/recharge/recharge.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TableComponent } from '../../../../components/table/table.component';
+import { StatusChipComponent } from '../../../../components/status-chip/status-chip.component';
+import { RechargesResource } from '../../../../resource/recharge/recharges.resource';
+import { RechargeService } from '../../../../services/recharge/recharge.service';
+import { EPaymentStatus } from '../../../../enums/EPaymentStatus';
+import { IRecharge } from '../../../../interfaces/IRecharge';
 
 @Component({
   selector: 'app-punter-recharge',
@@ -19,7 +20,7 @@ export class PunterRechargeComponent {
   readonly snackBar = inject(MatSnackBar);
 
   recharges = computed(() => this.rechargeResource.resource.value() || undefined);
-  rechargeType = ERechargeStatus.COMPLETED
+  rechargeType = EPaymentStatus.SUCCESS
   columnConfigs = [
     { key: 'id', displayName: 'ID', pipe: "guid" },
     { key: 'punter.name', displayName: 'Nome' },

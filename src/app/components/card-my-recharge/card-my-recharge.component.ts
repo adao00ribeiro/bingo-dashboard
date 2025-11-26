@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IRecharge } from '../../interfaces/IRecharge';
 import { CommonModule } from '@angular/common';
-import { ERechargeStatus } from '../../enums/ERechargeStatus';
+import { EPaymentStatus } from '../../enums/EPaymentStatus';
 @Component({
     selector: 'app-card-my-recharge',
     imports: [CommonModule],

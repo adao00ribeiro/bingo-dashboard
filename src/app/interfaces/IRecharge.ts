@@ -1,9 +1,9 @@
-import { ERechargeStatus } from "../enums/ERechargeStatus";
+import { EPaymentStatus } from "../enums/EPaymentStatus";
 
 export interface IRecharge {
       id: string,
       value :number
-      status : ERechargeStatus.PENDING;
+      status : EPaymentStatus.PENDING;
       qrcode : string,
       imagemQrcode : string,
       punterId : string,

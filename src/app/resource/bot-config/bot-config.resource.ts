@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BotConfigResourceService extends BaseResource<{ page: number; size: number }, IPaged<IBotConfig>> {
+export class BotConfigResource extends BaseResource<{ page: number; size: number }, IPaged<IBotConfig>> {
 
    private botConfigService = inject(BotConfigService)
 
