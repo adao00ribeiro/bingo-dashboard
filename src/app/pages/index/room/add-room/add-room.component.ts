@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup,  ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
@@ -8,10 +8,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ISeller } from '../../../../interfaces/ISeller';
 import { RoomService } from '../../../../services/room/room.service';
 import { SellerMeResource } from '../../../../resource/seller/seller-me.resource';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-add-room',
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIcon],
   templateUrl: './add-room.component.html',
   styleUrl: './add-room.component.scss'
 })
@@ -23,7 +24,8 @@ export class AddRoomComponent {
   protected readonly sellerMeResource = inject(SellerMeResource);
 
   user = signal<ISeller | undefined>(undefined);
-
+  imageUrl: string | null = null;
+  imageAvatar: File | null = null;
   constructor(private fb: FormBuilder) {
     this.roomForm = this.fb.group({
       roomName: ['', [Validators.required]],
@@ -36,22 +38,45 @@ export class AddRoomComponent {
     })
 
   }
+  removeImage() {
+    this.imageAvatar = null;
+    this.imageUrl = null;
+  }
   cancelar() {
-    console.log("fdp")
+
+    this.imageAvatar = null;
+    this.imageUrl = null;
     this.router.navigate(['/rooms']);
   }
+  handleFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (!input.files || input.files.length === 0) return;
+
+    const image = input.files[0];
+
+    if (image.type === 'image/png' || image.type === 'image/jpeg') {
+      this.imageAvatar = image;
+
+      // Preview
+      this.imageUrl = URL.createObjectURL(image);
+    }
+  }
+
   addRoom() {
 
     const id = this.user()?.id
     if (!id) {
       return;
     }
-    const roomRequest: IRoomRequest = {
-      name: this.roomForm.value.roomName,
-      ownerId: id
-    };
+    const formData = new FormData();
+    formData.append("name", this.roomForm.value.roomName);
+    formData.append("ownerId", id);
 
-    this.roomService.Create(roomRequest).subscribe({
+    if (this.imageAvatar) {
+      formData.append("image", this.imageAvatar);
+    }
+    this.roomService.Create(formData).subscribe({
       next: (data) => {
         console.log(data);
       },

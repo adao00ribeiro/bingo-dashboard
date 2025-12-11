@@ -1,11 +1,27 @@
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
-  <mat-form-field class="example-full-width">
-    <mat-label>Nome</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
-
-  <div class="container-buttons">
+<form [formGroup]="editRoomForm" (ngSubmit)="onSubmit()">
+  <section class="section">
+     <div class="group">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="roomName">
+    </mat-form-field>
+    </div>
+    <div class="group-col">
+      <mat-label>Imagem Sala</mat-label>
+      <label class="label-avatar">
+        <button type="button" class="remove-image" (click)="removeImage()">X</button>
+        <span class="upload-icon">
+          <mat-icon>upload</mat-icon>
+        </span>
+        <input type="file" accept="image/png, image/jpeg" (change)="handleFile($event)">
+        @if(imageUrl){
+        <img class="preview" alt="Foto da sala" [src]="imageUrl" width="250" height="250">
+        }
+      </label>
+    </div>
+  </section>
+  <footer class="container-buttons">
     <button type="button" mat-flat-button (click)="onClickCancel.emit()">Cancelar</button>
     <button class="btn-primary" type="submit" mat-flat-button>OK</button>
-  </div>
+  </footer>
 </form>

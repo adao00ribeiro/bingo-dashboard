@@ -17,16 +17,16 @@ export class RoomService {
     return this.httpClient.get<IPaged<IRoom>>(this.url + `?page=${page}&size=${size}`)
   }
 
-  Create(recharge: IRoomRequest): Observable<IRoom> {
-    return this.httpClient.post<IRoom>(this.url, recharge);
+  Create(formData: FormData): Observable<IRoom> {
+    return this.httpClient.post<IRoom>(this.url, formData);
   }
 
   GetById(id: string): Observable<IRoom> {
     return this.httpClient.get<IRoom>(`${this.url}/id/${id}`);
   }
 
-  UpdateById(id: number, recharge: IRoom): Observable<IRoom> {
-    return this.httpClient.put<IRoom>(`${this.url}/${id}`, recharge);
+  UpdateById(id: string, formData: FormData): Observable<IRoom> {
+    return this.httpClient.put<IRoom>(`${this.url}/${id}`, formData);
   }
   PatchById( recharge: IRoom): Observable<boolean> {
     return this.httpClient.patch<boolean>(`${this.url}/complete`, recharge);
