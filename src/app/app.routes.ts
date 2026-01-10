@@ -94,10 +94,12 @@ export const routes: Routes = [
 
     ],
   },
+  /*
   {
     path: 'cadastro',
     component: RegisterComponent,
   },
+  */
   {
     path: 'login',
     component: LoginComponent,
