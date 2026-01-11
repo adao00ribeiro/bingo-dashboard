@@ -9,7 +9,7 @@ export interface ISeller {
   cpf: string;
   dateBirth: Date;
   commission: number;
-  settings : ISellerSettings
-  punters?: IPunter[];
-  ownerRooms?: IRoom[];
+  //settings : ISellerSettings
+ // punters?: IPunter[];
+ // ownerRooms?: IRoom[];
 }
