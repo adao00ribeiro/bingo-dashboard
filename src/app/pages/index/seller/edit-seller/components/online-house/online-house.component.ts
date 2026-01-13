@@ -1,4 +1,6 @@
 import { Component, inject, input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,16 +12,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatAccordion, MatExpansionModule, MatExpansionPanel } from '@angular/material/expansion';
-import { GeralSellerComponent } from "./components/geral-seller/geral-seller.component";
-import { SellerService } from '../../../../services/seller/seller.service';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { OnlineHouseComponent } from "./components/online-house/online-house.component";
+import { SellerService } from '../../../../../../services/seller/seller.service';
+
 
 @Component({
-  selector: 'app-edit-seller',
-  imports: [
-    ReactiveFormsModule,
+  selector: 'app-online-house',
+  imports: [ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -30,15 +28,13 @@ import { OnlineHouseComponent } from "./components/online-house/online-house.com
     MatTabsModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatExpansionModule,
-    GeralSellerComponent,
-    OnlineHouseComponent
-],
-  templateUrl: './edit-seller.component.html',
-  styleUrl: './edit-seller.component.scss'
+    MatAccordion,
+    MatExpansionModule],
+  templateUrl: './online-house.component.html',
+  styleUrl: './online-house.component.scss',
 })
-export class EditSellerComponent implements OnInit {
-  id = input('');
+export class OnlineHouseComponent {
+id = input('');
   form!: FormGroup;
   loading = false;
   protected readonly sellerService: SellerService = inject(SellerService);
@@ -46,10 +42,13 @@ export class EditSellerComponent implements OnInit {
   private readonly snackBar = inject(MatSnackBar);
   constructor(private fb: FormBuilder) { }
 
+
   ngOnInit(): void {
 
 
     this.form = this.fb.group({
+      email: ['', Validators.required],
+      indicateRewardValue: ['', Validators.required],
       settings: this.fb.group({
         emailConfig: this.fb.group({
           primarySmtp: this.fb.group({
@@ -68,7 +67,7 @@ export class EditSellerComponent implements OnInit {
 
     this.loadSeller();
   }
-    loadSeller(): void {
+  loadSeller(): void {
     this.loading = true;
     this.sellerService.GetById(this.id()).subscribe({
       next: (seller) => {
@@ -90,7 +89,30 @@ export class EditSellerComponent implements OnInit {
       }
     });;
   }
-   back(){
+
+  save(): void {
+    if (this.form.invalid) return;
+
+    this.loading = true;
+    const updatedSeller = this.form.value;
+
+    this.sellerService.UpdateById(this.id(), updatedSeller).subscribe({
+      next: () => {
+        this.loading = false;
+        this.snackBar.open("Campo Atualizado com Sucesso", 'Ok', {
+                duration: 5000,
+               horizontalPosition: 'center',
+                verticalPosition: 'bottom',
+                panelClass: ['sucess-snackbar'],
+              });
+      },
+      error: (err) => {
+        console.error('Erro ao salvar', err);
+        this.loading = false;
+      }
+    });
+  }
+  back(){
         this.router.navigate(['/sellers']);
   }
 }

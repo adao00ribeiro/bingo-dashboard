@@ -1,0 +1,47 @@
+form{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+mat-list-item {
+  height: auto !important;
+  min-height: 80px;
+  padding: 8px 0;
+  ::ng-deep .mat-list-item-content {
+    height: auto !important;
+    padding: 0;
+    display: block;
+  }
+   mat-slide-toggle {
+      float: right; /* <— toggle à direita */
+    }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-slide-toggle {
+  margin-left: auto;
+}
+
+mat-divider {
+
+}
+
+mat-expansion-panel {
+
+}
+
+// Alternativa: ajustar apenas os itens que contêm form-field
+mat-list-item:has(mat-form-field) {
+  height: auto !important;
+  min-height: 88px;
+}
+
+
+
+
