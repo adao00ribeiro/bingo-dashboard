@@ -45,3 +45,13 @@ mat-list-item:has(mat-form-field) {
 
 
 
+::ng-deep .color-picker {
+  z-index: 9999 !important;
+}
+::ng-deep .mdc-text-field {
+  overflow: visible !important;
+
+}
+::ng-deep .mat-mdc-text-field-wrapper {
+  z-index: unset  !important; /* Use um valor maior, se necessário */
+}

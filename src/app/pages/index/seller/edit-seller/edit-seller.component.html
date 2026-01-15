@@ -11,7 +11,7 @@
   </mat-tab>
   <mat-tab label="Casa online">
     <ng-template matTabContent>
-        <app-online-house></app-online-house>
+        <app-online-house [onlineHouse]="this.seller?.onlineHouse!"></app-online-house>
     </ng-template>
   </mat-tab>
 </mat-tab-group>

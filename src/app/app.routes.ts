@@ -10,7 +10,6 @@ import { ListRoundComponent } from './pages/index/round/list-round/list-round.co
 import { ListRoomComponent } from './pages/index/room/list-room/list-room.component';
 import { RoundTabsComponent } from './pages/index/round/round-tabs/round-tabs.component';
 import { EditRoomComponent } from './pages/index/room/edit-room/edit-room.component';
-import { CustomizeColorsComponent } from './pages/index/customize-colors/customize-colors.component';
 import { ListPunterComponent } from './pages/index/punter/list-punter/list-punter.component';
 import { ReportRoundsComponent } from './pages/index/report-rounds/report-rounds.component';
 import { ListSellerComponent } from './pages/index/seller/list-seller/list-seller.component';
@@ -78,10 +77,6 @@ export const routes: Routes = [
       {
         path: 'transactions',
         component: IndexTransactionComponent,
-      },
-      {
-        path: 'customize-colors',
-        component: CustomizeColorsComponent,
       },
         {
         path: 'scratch-games',

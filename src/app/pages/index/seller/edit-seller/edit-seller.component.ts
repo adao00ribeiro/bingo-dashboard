@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,6 +15,7 @@ import { SellerService } from '../../../../services/seller/seller.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OnlineHouseComponent } from "./components/online-house/online-house.component";
+import { ISeller } from '../../../../interfaces/ISeller';
 
 @Component({
   selector: 'app-edit-seller',
@@ -45,10 +46,8 @@ export class EditSellerComponent implements OnInit {
   private router: Router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   constructor(private fb: FormBuilder) { }
-
+  seller : ISeller | undefined  = undefined;
   ngOnInit(): void {
-
-
     this.form = this.fb.group({
       settings: this.fb.group({
         emailConfig: this.fb.group({
@@ -72,6 +71,7 @@ export class EditSellerComponent implements OnInit {
     this.loading = true;
     this.sellerService.GetById(this.id()).subscribe({
       next: (seller) => {
+        this.seller = seller;
         this.form.patchValue(seller);
         this.loading = false;
       },
