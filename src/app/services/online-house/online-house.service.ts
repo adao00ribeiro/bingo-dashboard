@@ -18,7 +18,7 @@ export class OnlineHouseService {
     return this.httpClient.get<IPaged<IOnlineHouseResponse>>(this.url + `?page=${page}&size=${size}`)
   }
 
-    UpdateById(id: string, onlineSeller: IOnlineHouseRequest): Observable<IOnlineHouseResponse> {
-      return this.httpClient.patch<IOnlineHouseResponse>(`${this.url}/${id}`, onlineSeller);
-    }
+  PatchById(id: string, onlineSeller: IOnlineHouseRequest): Observable<boolean> {
+    return this.httpClient.patch<boolean>(`${this.url}/${id}`, onlineSeller);
+  }
 }
