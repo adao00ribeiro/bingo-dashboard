@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomizeColorsComponent } from './customize-colors.component';
+import { OnlineHouseComponent } from './online-house.component';
 
-describe('CustomizeColorsComponent', () => {
-  let component: CustomizeColorsComponent;
-  let fixture: ComponentFixture<CustomizeColorsComponent>;
+describe('OnlineHouseComponent', () => {
+  let component: OnlineHouseComponent;
+  let fixture: ComponentFixture<OnlineHouseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomizeColorsComponent]
+      imports: [OnlineHouseComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomizeColorsComponent);
+    fixture = TestBed.createComponent(OnlineHouseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

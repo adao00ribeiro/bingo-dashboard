@@ -1,0 +1,241 @@
+<form [formGroup]="form">
+
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="BNGX" formControlName="name" (change)="onFieldChange('name')">
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Hostname</mat-label>
+    <input matInput placeholder="bngx.online" formControlName="hostname" (change)="onFieldChange('hostname')">
+  </mat-form-field>
+
+  <mat-list-item formGroupName="settings">
+    <span>Habilitar Raspadinha</span>
+    <mat-slide-toggle color="primary" formControlName="enabledScratch"
+      (change)="onNestedFieldChange('settings.enabledScratch')">
+    </mat-slide-toggle>
+  </mat-list-item>
+
+  <mat-accordion>
+    <mat-expansion-panel formGroupName="payment">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Gatway de Pagamento</mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <mat-form-field class="full" appearance="outline">
+          <mat-label>Tipo de Pagamento</mat-label>
+          <mat-select formControlName="type">
+            @for (item of methodsNoCrypto(); track $index) {
+            <mat-option [value]="item.type">{{item.type}}</mat-option>
+            }
+          </mat-select>
+          <mat-hint>
+            PIX ou PushPay podem coexistir com Crypto
+          </mat-hint>
+        </mat-form-field>
+        @if (form.get('payment.type')?.value ) {
+        <mat-form-field>
+          <mat-label>Pix Copia e Cola</mat-label>
+          <input matInput formControlName="pixPayload" (change)="onNestedFieldPaymentChange('payment.pixPayload')">
+        </mat-form-field>
+        }
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion>
+    <mat-expansion-panel formGroupName="settings">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Servidor SMTP</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formGroupName="emailConfig">
+        <div formGroupName="primarySmtp">
+          <mat-list>
+            <mat-list-item>
+              <mat-form-field>
+                <mat-label>Host</mat-label>
+                <input matInput formControlName="host"
+                  (change)="onNestedFieldChange('settings.emailConfig.primarySmtp.host')">
+              </mat-form-field>
+            </mat-list-item>
+
+            <mat-list-item>
+              <mat-form-field>
+                <mat-label>Porta</mat-label>
+                <input type="number" matInput formControlName="port"
+                  (change)="onNestedFieldChange('settings.emailConfig.primarySmtp.port')">
+              </mat-form-field>
+            </mat-list-item>
+
+            <mat-list-item>
+              <mat-form-field>
+                <mat-label>Usuário</mat-label>
+                <input matInput formControlName="user"
+                  (change)="onNestedFieldChange('settings.emailConfig.primarySmtp.user')">
+              </mat-form-field>
+            </mat-list-item>
+
+            <mat-list-item>
+              <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput formControlName="password"
+                  (change)="onNestedFieldChange('settings.emailConfig.primarySmtp.password')">
+              </mat-form-field>
+            </mat-list-item>
+
+            <mat-list-item>
+              <span>SSL Ativado</span>
+              <mat-slide-toggle color="primary" formControlName="enableSsl"
+                (change)="onNestedFieldChange('settings.emailConfig.primarySmtp.enableSsl')">
+              </mat-slide-toggle>
+            </mat-list-item>
+          </mat-list>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <mat-list>
+          <mat-list-item>
+            <mat-form-field>
+              <mat-label>Endereço do Remetente</mat-label>
+              <input matInput formControlName="fromAddress"
+                (change)="onNestedFieldChange('settings.emailConfig.fromAddress')">
+            </mat-form-field>
+          </mat-list-item>
+
+          <mat-list-item>
+            <mat-form-field>
+              <mat-label>Nome do Remetente</mat-label>
+              <input matInput formControlName="fromName"
+                (change)="onNestedFieldChange('settings.emailConfig.fromName')">
+            </mat-form-field>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <mat-accordion>
+    <mat-expansion-panel formGroupName="settings">
+      <mat-expansion-panel-header>
+        <mat-panel-title>Config. Cores Bingo</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div formGroupName="bingoColorsConfig">
+        <h1>Design Bingo</h1>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Primaria</mat-label>
+          <input matInput formControlName="colorPrimary" [value]="bingoColors.get('colorPrimary')?.value"
+            [colorPicker]="bingoColors.get('colorPrimary')?.value"
+            [style.background]="bingoColors.get('colorPrimary')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'bottom'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('colorPrimary', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Primaria Hover</mat-label>
+          <input matInput formControlName="colorPrimaryHover"
+            [colorPicker]="bingoColors.get('colorPrimaryHover')?.value"
+            [style.background]="bingoColors.get('colorPrimaryHover')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('colorPrimaryHover', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Segundaria</mat-label>
+          <input matInput formControlName="colorSecond" [colorPicker]="bingoColors.get('colorSecond')?.value"
+            [style.background]="bingoColors.get('colorSecond')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'bottom'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('colorSecond', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Segundaria Hover</mat-label>
+          <input matInput formControlName="colorSecondHover" [colorPicker]="bingoColors.get('colorSecondHover')?.value"
+            [style.background]="bingoColors.get('colorSecondHover')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('colorSecondHover', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Primaria</mat-label>
+          <input matInput formControlName="backgroundColorPrimary"
+            [colorPicker]="bingoColors.get('backgroundColorPrimary')?.value"
+            [style.background]="bingoColors.get('backgroundColorPrimary')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('backgroundColorPrimary', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Segundaria</mat-label>
+          <input matInput formControlName="backgroundColorSecond"
+            [colorPicker]="bingoColors.get('backgroundColorSecond')?.value"
+            [style.background]="bingoColors.get('backgroundColorSecond')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('backgroundColorSecond', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor de fundo Terceiro</mat-label>
+          <input matInput formControlName="backgroundColorThird"
+            [colorPicker]="bingoColors.get('backgroundColorThird')?.value"
+            [style.background]="bingoColors.get('backgroundColorThird')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('backgroundColorThird', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor do Numero</mat-label>
+          <input matInput formControlName="colorBall" [colorPicker]="bingoColors.get('colorBall')?.value"
+            [style.background]="bingoColors.get('colorBall')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'bottom'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('colorBall', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor do Numero Marcado</mat-label>
+          <input matInput formControlName="colorBallMarked" [colorPicker]="bingoColors.get('colorBallMarked')?.value"
+            [style.background]="bingoColors.get('colorBallMarked')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('colorBallMarked', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor do Numero Atual</mat-label>
+          <input matInput formControlName="colorBallCurrent" [colorPicker]="bingoColors.get('colorBallCurrent')?.value"
+            [style.background]="bingoColors.get('colorBallCurrent')?.value" [cpOutputFormat]="'hex'"
+            [cpPosition]="'bottom'" [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true"
+            cpDialogDisplay="popup" (colorPickerSelect)="onColorChange('colorBallCurrent', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor Do Painel da Cartela</mat-label>
+          <input matInput formControlName="colorPanelCard" [colorPicker]="bingoColors.get('colorPanelCard')?.value"
+            [style.background]="bingoColors.get('colorPanelCard')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'top'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('colorPanelCard', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor do Texto</mat-label>
+          <input matInput formControlName="textColor" [colorPicker]="bingoColors.get('textColor')?.value"
+            [style.background]="bingoColors.get('textColor')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'top'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('textColor', $event)" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Cor do Texto Hover</mat-label>
+          <input matInput formControlName="textColorHover" [colorPicker]="bingoColors.get('textColorHover')?.value"
+            [style.background]="bingoColors.get('textColorHover')?.value" [cpOutputFormat]="'hex'" [cpPosition]="'top'"
+            [cpPositionOffset]="'50%'" [cpPositionRelativeToArrow]="true" cpDialogDisplay="popup"
+            (colorPickerSelect)="onColorChange('textColorHover', $event)" readonly>
+        </mat-form-field>
+
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>

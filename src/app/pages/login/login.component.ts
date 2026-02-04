@@ -28,8 +28,7 @@ import { STORAGE_REFRESH_TOKEN, STORAGE_TOKEN } from '../../constants/storage.se
     MatInputModule,
     MatIconModule,
     MatDividerModule,
-    MatButtonModule,
-    RouterLink
+    MatButtonModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'

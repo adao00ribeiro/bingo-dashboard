@@ -1,0 +1,10 @@
+<form [formGroup]="form">
+  <mat-form-field class="example-full-width">
+    <mat-label>email</mat-label>
+    <input matInput placeholder="jodo@jodo.com" formControlName="email" (change)="save()">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Valor da Recompensa por Indicação</mat-label>
+    <input matInput placeholder="R$10,00" formControlName="indicateRewardValue" (change)="save()">
+  </mat-form-field>
+</form>
