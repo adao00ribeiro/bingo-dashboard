@@ -7,36 +7,40 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { ScratchGameResource } from '../../../../resource/scratch/scratch-game.resource';
 import { SellersResource } from '../../../../resource/seller/sellers.resource';
-import { ScratchSellerGameService } from '../../../../services/scratch/scratch-seller-game/scratch-seller-game.service';
-import { IScratchGameRequest } from '../../../../interfaces/request/scratch/IScratchGameRequest';
+import { ScratchGameOverrideService } from '../../../../services/scratch/scratch-seller-game/scratch-game-override.service';
+import { IScratchGameOverrideRequest } from '../../../../interfaces/request/scratch/IScratchGameOverrideRequest';
+import { OnlineHousesResource } from '../../../../resource/online-house/online-houses.resource';
 
 @Component({
-  selector: 'app-new-scratch-seller-game',
+  selector: 'app-new-scratch-game-override',
   imports: [ReactiveFormsModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
-  templateUrl: './new-scratch-seller-game.component.html',
-  styleUrl: './new-scratch-seller-game.component.scss'
+  templateUrl: './new-scratch-game-override.component.html',
+  styleUrl: './new-scratch-game-override.component.scss'
 })
-export class NewScratchSellerGameComponent {
+export class NewScratchGameOverrideComponent {
   Form: FormGroup;
   private router: Router = inject(Router);
-  protected readonly sellerResource: SellersResource = inject(SellersResource);
+  protected readonly onlineHouseResource: OnlineHousesResource = inject(OnlineHousesResource);
   protected readonly scratchGameResource = inject(ScratchGameResource);
-  protected readonly scratchSellerGameService = inject(ScratchSellerGameService);
+  protected readonly scratchGameOverrideService = inject(ScratchGameOverrideService);
 
   readonly snackBar = inject(MatSnackBar);
 
   scrachGames = computed(() => this.scratchGameResource.resource.value()?.rows || []);
-  sellers = computed(() => this.sellerResource.resource.value()?.rows || []);
+  onlineHouses = computed(() => this.onlineHouseResource.resource.value()?.rows || []);
 
 
   constructor(private fb: FormBuilder) {
     this.Form = this.fb.group({
-      sellerId: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      subtitle: ['', [Validators.required]],
+      cardValue: ['', [Validators.required]],
+      onlineHouseId: ['', [Validators.required]],
       scratchGameId: ['', [Validators.required]],
     });
   }
   ngOnInit(): void {
-    this.sellerResource.setRequest({ page: 1, size: 5000 ,enabledScratch:true });
+    this.onlineHouseResource.setRequest({ page: 1, size: 5000 ,enabledScratch:true });
     this.scratchGameResource.setRequest({ page: 1, size: 5000 });
   }
   cancelar() {
@@ -47,11 +51,14 @@ export class NewScratchSellerGameComponent {
     if (this.Form.invalid) {
       return;
     }
-    var data: IScratchGameRequest = {
-      sellerId: this.Form.value.sellerId,
-      scratchGameId: this.Form.value.scratchGameId
+    var data: IScratchGameOverrideRequest = {
+    title:this.Form.value.title,
+    subtitle:this.Form.value.subtitle,
+    cardValue:this.Form.value.cardValue,
+    onlineHouseId:this.Form.value.onlineHouseId,
+    scratchGameId: this.Form.value.scratchGameId,
     }
-    this.scratchSellerGameService.Create(data).subscribe({
+    this.scratchGameOverrideService.Create(data).subscribe({
       next: (data) => {
       },
       error: (err) => {

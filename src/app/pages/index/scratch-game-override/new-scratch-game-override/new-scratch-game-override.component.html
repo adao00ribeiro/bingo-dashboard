@@ -1,0 +1,38 @@
+<form class="form" [formGroup]="Form" (ngSubmit)="addScratchSellerGame()">
+  <h2>Adicionar Jogo</h2>
+      <mat-form-field>
+        <mat-label>Vendedor Online</mat-label>
+        <mat-select name="onlineHouse" formControlName="onlineHouseId">
+          @for (online of onlineHouses(); track online) {
+          <mat-option [value]="online.id">{{online.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+          <mat-form-field>
+        <mat-label>Game</mat-label>
+        <mat-select name="scratchGameId" formControlName="scratchGameId">
+          @for (game of scrachGames(); track game) {
+          <mat-option [value]="game.id">{{game.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+       <mat-form-field class="example-full-width">
+        <mat-label>Titulo</mat-label>
+        <input type="text" matInput formControlName="title">
+      </mat-form-field>
+
+       <mat-form-field class="example-full-width">
+        <mat-label>Sub Titulo</mat-label>
+        <input type="text" matInput formControlName="subtitle">
+      </mat-form-field>
+
+         <mat-form-field class="example-full-width">
+        <mat-label>Valor Cartela</mat-label>
+        <input type="text" matInput formControlName="cardValue">
+      </mat-form-field>
+  <footer class="footer">
+    <button class="btn-second" type="button" (click)="cancelar()">Cancelar</button>
+    <button class="btn-primary" type="submit">Adicionar</button>
+  </footer>
+</form>

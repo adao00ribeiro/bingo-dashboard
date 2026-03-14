@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ScratchSellerGameService } from './scratch-seller-game.service';
+import { ScratchSellerGameService } from './scratch-game-override.service';
 
 describe('ScratchSellerGameService', () => {
   let service: ScratchSellerGameService;

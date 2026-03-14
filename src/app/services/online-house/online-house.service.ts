@@ -14,8 +14,12 @@ export class OnlineHouseService {
   private url = `${environment.api}/api/v1/onlinehouse`
   private httpClient: HttpClient = inject(HttpClient);
 
-  GetAll(page: number, size: number): Observable<IPaged<IOnlineHouseResponse>> {
-    return this.httpClient.get<IPaged<IOnlineHouseResponse>>(this.url + `?page=${page}&size=${size}`)
+  GetAll(page: number, size: number,enabledScratch:boolean): Observable<IPaged<IOnlineHouseResponse>> {
+    let url = `${this.url}?page=${page}&size=${size}`;
+    if (enabledScratch !== undefined) {
+      url += `&enabledScratch=${enabledScratch}`;
+    }
+    return this.httpClient.get<IPaged<IOnlineHouseResponse>>(url)
   }
 
   PatchById(id: string, onlineSeller: IOnlineHouseRequest): Observable<boolean> {

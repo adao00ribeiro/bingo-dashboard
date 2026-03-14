@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { IndexComponent } from './pages/index/index.component';
-import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guard/auth.guard';
 import { MyAccountComponent } from './pages/index/my-account/my-account.component';
@@ -14,9 +13,9 @@ import { ListPunterComponent } from './pages/index/punter/list-punter/list-punte
 import { ReportRoundsComponent } from './pages/index/report-rounds/report-rounds.component';
 import { ListSellerComponent } from './pages/index/seller/list-seller/list-seller.component';
 import { EditSellerComponent } from './pages/index/seller/edit-seller/edit-seller.component';
-import { IndexScratchSellerGameComponent } from './pages/index/scratch-seller-games/index-scratch-seller-game/index-scratch-seller-game.component';
-import { NewScratchSellerGameComponent } from './pages/index/scratch-seller-games/new-scratch-seller-game/new-scratch-seller-game.component';
 import { IndexTransactionComponent } from './pages/index/transactions/index-transaction.component';
+import { IndexScratchSellerGameComponent } from './pages/index/scratch-game-override/index-scratch-game-override/index-scratch-game-override.component';
+import { NewScratchGameOverrideComponent } from './pages/index/scratch-game-override/new-scratch-game-override/new-scratch-game-override.component';
 
 
 export const routes: Routes = [
@@ -84,7 +83,7 @@ export const routes: Routes = [
       },
       {
         path: 'add-scratch-game',
-        component: NewScratchSellerGameComponent,
+        component: NewScratchGameOverrideComponent,
       },
 
     ],
