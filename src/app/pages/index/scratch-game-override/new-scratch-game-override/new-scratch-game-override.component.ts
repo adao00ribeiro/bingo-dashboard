@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { ScratchGameResource } from '../../../../resource/scratch/scratch-game.resource';
 import { SellersResource } from '../../../../resource/seller/sellers.resource';
-import { ScratchGameOverrideService } from '../../../../services/scratch/scratch-seller-game/scratch-game-override.service';
+import { ScratchGameOverrideService } from '../../../../services/scratch/scratch-game-override/scratch-game-override.service';
 import { IScratchGameOverrideRequest } from '../../../../interfaces/request/scratch/IScratchGameOverrideRequest';
 import { OnlineHousesResource } from '../../../../resource/online-house/online-houses.resource';
 
